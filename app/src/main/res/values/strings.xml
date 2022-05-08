@@ -2,4 +2,18 @@
     <string name="app_name">Recipe App</string>
 
     <string name="search_text">レシピを検索</string>
+
+    <string name="recipe_title">レシピ名</string>
+    <string name="recipe_category">カテゴリー</string>
+    <string-array name="recipe_category_list">
+        <item>主菜</item>
+        <item>副菜</item>
+        <item>丼・麺類</item>
+        <item>デザート</item>
+    </string-array>
+    <string name="recipe_image">イメージ</string>
+    <string name="recipe_ingredients">材料</string>
+    <string name="recipe_link">リンク</string>
+    <string name="recipe_date">作った日</string>
+
 </resources>
