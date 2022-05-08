@@ -10,7 +10,7 @@
         android:id="@+id/recipe_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/recipe_title">
@@ -28,12 +28,74 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recipe_title"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         tools:listitem="@layout/support_simple_spinner_dropdown_item"/>
 
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/recipe_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_spinner"
+        android:layout_margin="24dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/ic_baseline_android_24"/>
 
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/recipe_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_image"
+        android:hint="@string/recipe_ingredients">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/recipe_ingredients_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/recipe_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_ingredients"
+        android:hint="@string/recipe_link">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/recipe_link_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/recipe_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_link"
+        android:hint="@string/recipe_date">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/recipe_date_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="date"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
