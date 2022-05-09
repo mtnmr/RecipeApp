@@ -24,7 +24,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     //背景タップでキーボード非表示
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//
+//        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
+//        inputManager.hideSoftInputFromWindow(
+//            layout.windowToken,
+//            InputMethodManager.HIDE_NOT_ALWAYS
+//        )
+//
+//        return false
+//    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
 
         val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val layout = findViewById<ConstraintLayout>(R.id.constraint_layout)
@@ -33,6 +45,6 @@ class MainActivity : AppCompatActivity() {
             InputMethodManager.HIDE_NOT_ALWAYS
         )
 
-        return false
+        return super.dispatchTouchEvent(ev)
     }
 }

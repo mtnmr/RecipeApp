@@ -1,11 +1,16 @@
 package com.example.recipeapp.ui
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
+import android.hardware.input.InputManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -27,9 +32,10 @@ class RecipeEditFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.recipe_category_list,

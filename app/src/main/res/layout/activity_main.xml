@@ -7,7 +7,6 @@
     tools:context=".MainActivity"
     android:id="@+id/constraint_layout">
 
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
