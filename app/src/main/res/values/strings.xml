@@ -18,4 +18,7 @@
     <string name="recipe_delete">削除</string>
     <string name="recipe_save">保存</string>
 
+    <string name="recipe_edit_fragment_title">レシピ編集</string>
+    <string name="home_fragment_title">レシピ一覧</string>
+
 </resources>

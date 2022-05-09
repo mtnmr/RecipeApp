@@ -15,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
 import java.util.*
@@ -56,6 +57,17 @@ class RecipeEditFragment : Fragment() {
         }
 
         binding.recipeDateEdit.setOnClickListener { showDatePicker(binding.recipeDateEdit) }
+
+
+        binding.recipeDeleteButton.setOnClickListener {
+            val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.recipeSaveButton.setOnClickListener {
+            val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
+            findNavController().navigate(action)
+        }
 
     }
 
