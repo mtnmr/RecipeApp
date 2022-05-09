@@ -12,28 +12,47 @@
         android:layout_height="wrap_content"
         android:paddingBottom="24dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/recipe_title"
+        <LinearLayout
+            android:id="@+id/recipe_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:hint="@string/recipe_title">
+            android:layout_margin="24dp"
+            android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/recipe_title_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/recipe_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/recipe_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/recipe_title_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/favorite_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_favorite_border_24"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"/>
+
+
+        </LinearLayout>
+
 
         <Spinner
             android:id="@+id/category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recipe_title"
+            app:layout_constraintTop_toBottomOf="@id/recipe_linear"
             android:layout_margin="24dp"
             tools:listitem="@layout/support_simple_spinner_dropdown_item"/>
 
@@ -103,6 +122,28 @@
                 android:focusable="false"
                 android:inputType="date"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+       <com.google.android.material.button.MaterialButton
+           android:id="@+id/recipe_delete_button"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toStartOf="@+id/recipe_save_button"
+           app:layout_constraintTop_toBottomOf="@+id/recipe_date"
+           android:layout_margin="24dp"
+           android:text="@string/recipe_delete"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/recipe_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/recipe_delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_date"
+            android:layout_margin="24dp"
+            android:text="@string/recipe_save"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

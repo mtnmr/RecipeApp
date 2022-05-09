@@ -15,5 +15,7 @@
     <string name="recipe_ingredients">材料</string>
     <string name="recipe_link">リンク</string>
     <string name="recipe_date">作った日</string>
+    <string name="recipe_delete">削除</string>
+    <string name="recipe_save">保存</string>
 
 </resources>
