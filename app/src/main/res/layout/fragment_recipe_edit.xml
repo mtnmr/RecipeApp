@@ -42,10 +42,10 @@
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
-        <ImageView
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:src="@drawable/ic_baseline_android_24"/>
+            tools:src="@drawable/ic_baseline_image_24"/>
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -78,7 +78,7 @@
             android:id="@+id/recipe_link_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textMultiLine"/>
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -94,6 +94,7 @@
             android:id="@+id/recipe_date_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
             android:inputType="date"/>
     </com.google.android.material.textfield.TextInputLayout>
 

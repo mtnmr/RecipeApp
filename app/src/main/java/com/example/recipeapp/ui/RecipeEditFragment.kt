@@ -1,5 +1,6 @@
 package com.example.recipeapp.ui
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Spinner
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
+import java.util.*
 
 class RecipeEditFragment : Fragment() {
 
@@ -45,6 +48,28 @@ class RecipeEditFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+
+        binding.recipeDateEdit.setOnClickListener { showDatePicker(binding.recipeDateEdit) }
+
+    }
+
+    private fun showDatePicker(editText: EditText){
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, day ->
+                editText.setText(String.format("%d/%02d/%02d", year, month+1, day))
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
     }
 
     override fun onDestroyView() {
