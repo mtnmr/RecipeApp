@@ -23,6 +23,8 @@ import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.selects.whileSelect
 import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -68,8 +70,15 @@ class RecipeEditFragment : Fragment() {
 
 
         binding.recipeImage.setOnClickListener {
-//            checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            checkPermission(Manifest.permission.CAMERA)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.image_select)
+                .setItems(R.array.storage_or_camera){ dialog, which ->
+                    when(which){
+                        0 -> checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        1 -> checkPermission(Manifest.permission.CAMERA)
+                    }
+                }
+                .show()
         }
 
 
@@ -107,11 +116,11 @@ class RecipeEditFragment : Fragment() {
     private val storagePermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(
-                    activity?.applicationContext,
-                    "デバイス内の写真やメディアへのアクセスが許可されました。",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    activity?.applicationContext,
+//                    "デバイス内の写真やメディアへのアクセスが許可されました。",
+//                    Toast.LENGTH_SHORT
+//                ).show()
                 Log.d("recipeApp", "permission OK")
                 selectPhoto()
             } else {
@@ -127,17 +136,17 @@ class RecipeEditFragment : Fragment() {
     private val cameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(
-                    activity?.applicationContext,
-                    "デバイス内の写真やメディアへのアクセスが許可されました。",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    activity?.applicationContext,
+//                    "デバイス内の写真やメディアへのアクセスが許可されました。",
+//                    Toast.LENGTH_SHORT
+//                ).show()
                 Log.d("recipeApp", "camera permission OK")
                 takePicture()
             } else {
                 Toast.makeText(
                     activity?.applicationContext,
-                    "デバイス内の写真やメディアへのアクセスが許可されませんでした。",
+                    "カメラへのアクセスが許可されませんでした。",
                     Toast.LENGTH_SHORT
                 ).show()
                 Log.d("recipeApp", "camera permission NG")
@@ -211,7 +220,7 @@ class RecipeEditFragment : Fragment() {
                     if (data != null) {
                         if (cameraUri != null) {
                             binding.recipeImage.setImageURI(cameraUri)
-                            Log.d("recipe app", "${cameraUri}")
+//                            Log.d("recipe app", "$cameraUri")
                         } else {
                             Log.d("recipe app", "cameraUri null")
                         }
@@ -282,18 +291,18 @@ class RecipeEditFragment : Fragment() {
     //日付入力
     private fun showDatePicker(editText: EditText) {
         val c = Calendar.getInstance()
-        val nowyear = c.get(Calendar.YEAR)
-        val nowmonth = c.get(Calendar.MONTH)
-        val nowday = c.get(Calendar.DAY_OF_MONTH)
+        val nowYear = c.get(Calendar.YEAR)
+        val nowMonth = c.get(Calendar.MONTH)
+        val nowDay = c.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, year, month, day ->
                 editText.setText(String.format("%d/%02d/%02d", year, month + 1, day))
             },
-            nowyear,
-            nowmonth,
-            nowday
+            nowYear,
+            nowMonth,
+            nowDay
         )
 
         datePickerDialog.show()

@@ -21,4 +21,9 @@
     <string name="recipe_edit_fragment_title">レシピ編集</string>
     <string name="home_fragment_title">レシピ一覧</string>
 
+    <string name="image_select">写真</string>
+    <string-array name="storage_or_camera">
+        <item>フォルダから選択</item>
+        <item>カメラを起動</item>
+    </string-array>
 </resources>
