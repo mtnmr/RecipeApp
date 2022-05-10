@@ -30,7 +30,7 @@ import java.util.*
 
 class RecipeEditFragment : Fragment() {
 
-    private var _binding:FragmentRecipeEditBinding ?= null
+    private var _binding: FragmentRecipeEditBinding? = null
     private val binding get() = _binding!!
 
 //    private val RECORD_REQUEST_CODE  = 1000
@@ -46,7 +46,7 @@ class RecipeEditFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.recipe_category_list,
@@ -56,7 +56,7 @@ class RecipeEditFragment : Fragment() {
         val spinner = binding.categorySpinner
         spinner.adapter = adapter
 
-        spinner.onItemSelectedListener = object :  AdapterView.OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
                 val spinner = parent as Spinner
                 val str = spinner.selectedItem.toString()
@@ -89,48 +89,68 @@ class RecipeEditFragment : Fragment() {
     }
 
     //パーミッション許可
-    private fun checkPermission(permission: String){
-        if (ActivityCompat.checkSelfPermission(requireContext(),
-            permission) == PackageManager.PERMISSION_GRANTED){
-            when(permission) {
+    private fun checkPermission(permission: String) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            when (permission) {
                 Manifest.permission.READ_EXTERNAL_STORAGE -> selectPhoto()
                 Manifest.permission.CAMERA -> takePicture()
             }
-        }else{
-           requestPermission(permission)
+        } else {
+            requestPermission(permission)
         }
     }
 
     private val storagePermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()){
-                isGranted:Boolean ->
-            if (isGranted){
-                Toast.makeText(activity?.applicationContext, "デバイス内の写真やメディアへのアクセスが許可されました。", Toast.LENGTH_SHORT).show()
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(
+                    activity?.applicationContext,
+                    "デバイス内の写真やメディアへのアクセスが許可されました。",
+                    Toast.LENGTH_SHORT
+                ).show()
                 Log.d("recipeApp", "permission OK")
                 selectPhoto()
-            }else{
-                Toast.makeText(activity?.applicationContext , "デバイス内の写真やメディアへのアクセスが許可されませんでした。", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    activity?.applicationContext,
+                    "デバイス内の写真やメディアへのアクセスが許可されませんでした。",
+                    Toast.LENGTH_SHORT
+                ).show()
                 Log.d("recipeApp", "permission")
             }
         }
 
     private val cameraPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()){
-            isGranted : Boolean ->
-        if (isGranted){
-            Toast.makeText(activity?.applicationContext, "デバイス内の写真やメディアへのアクセスが許可されました。", Toast.LENGTH_SHORT).show()
-            Log.d("recipeApp", "camera permission OK")
-            takePicture()
-        }else{
-            Toast.makeText(activity?.applicationContext , "デバイス内の写真やメディアへのアクセスが許可されませんでした。", Toast.LENGTH_SHORT).show()
-            Log.d("recipeApp", "camera permission NG")
-        }
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(
+                    activity?.applicationContext,
+                    "デバイス内の写真やメディアへのアクセスが許可されました。",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.d("recipeApp", "camera permission OK")
+                takePicture()
+            } else {
+                Toast.makeText(
+                    activity?.applicationContext,
+                    "デバイス内の写真やメディアへのアクセスが許可されませんでした。",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.d("recipeApp", "camera permission NG")
+            }
         }
 
-    private fun requestPermission(permission: String){
-        when(permission){
+    private fun requestPermission(permission: String) {
+        when (permission) {
             Manifest.permission.READ_EXTERNAL_STORAGE -> {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission)
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        permission
+                    )
                 ) {
                     storagePermissionLauncher.launch(permission)
                 } else {
@@ -140,7 +160,10 @@ class RecipeEditFragment : Fragment() {
             }
 
             Manifest.permission.CAMERA -> {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission)
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        permission
+                    )
                 ) {
                     cameraPermissionLauncher.launch(permission)
                 } else {
@@ -152,19 +175,23 @@ class RecipeEditFragment : Fragment() {
     }
 
     private val selectPhotoLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            if (result.resultCode != RESULT_OK){
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != RESULT_OK) {
                 return@registerForActivityResult
-            }else{
-                try{
+            } else {
+                try {
                     binding.recipeImage.setImageURI(result.data?.data)
-                }catch (e:Exception){
-                    Toast.makeText(activity?.applicationContext, "select photo Error", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        activity?.applicationContext,
+                        "select photo Error",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
 
-    private fun selectPhoto(){
+    private fun selectPhoto() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "image/*"
@@ -175,17 +202,17 @@ class RecipeEditFragment : Fragment() {
     private var cameraUri: Uri? = null
 
     private val takePictureLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            if (result.resultCode != RESULT_OK){
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != RESULT_OK) {
                 return@registerForActivityResult
-            }else{
-                try{
+            } else {
+                try {
                     val data = result.data
-                    if (data != null){
-                        if(cameraUri != null ){
+                    if (data != null) {
+                        if (cameraUri != null) {
                             binding.recipeImage.setImageURI(cameraUri)
                             Log.d("recipe app", "${cameraUri}")
-                        }else{
+                        } else {
                             Log.d("recipe app", "cameraUri null")
                         }
                     }
@@ -194,21 +221,26 @@ class RecipeEditFragment : Fragment() {
 //                        binding.recipeImage.setImageBitmap(data)
 //                        Log.d("recipe app", "picture set")
 //                    }
-                }catch (e:Exception){
-                    Toast.makeText(activity?.applicationContext, "set photo Error", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        activity?.applicationContext,
+                        "set photo Error",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Log.d("recipe app", e.toString())
                 }
             }
         }
 
-    private fun takePicture(){
+    private fun takePicture() {
 //        val dir:File? = activity?.applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         //内部ストレージPicturesに保存される
 //        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         //内部ストレージDCIMに保存される　→　画像から見れる
-        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
-        val fileDate:String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val file:File = File.createTempFile("JPEG_${fileDate}_", ".jpg", dir)
+        val dir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
+        val fileDate: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.JAPAN).format(Date())
+        val file: File = File.createTempFile("JPEG_${fileDate}_", ".jpg", dir)
         cameraUri = FileProvider.getUriForFile(
             activity?.applicationContext!!,
             "com.example.recipeapp.fileprovider",
@@ -248,20 +280,20 @@ class RecipeEditFragment : Fragment() {
 
 
     //日付入力
-    private fun showDatePicker(editText: EditText){
+    private fun showDatePicker(editText: EditText) {
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        val nowyear = c.get(Calendar.YEAR)
+        val nowmonth = c.get(Calendar.MONTH)
+        val nowday = c.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, year, month, day ->
-                editText.setText(String.format("%d/%02d/%02d", year, month+1, day))
+                editText.setText(String.format("%d/%02d/%02d", year, month + 1, day))
             },
-            year,
-            month,
-            day
+            nowyear,
+            nowmonth,
+            nowday
         )
 
         datePickerDialog.show()
