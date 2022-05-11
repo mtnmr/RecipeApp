@@ -20,9 +20,15 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
+import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
+import com.example.recipeapp.viewmodel.RecipeViewModel
+import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.selects.whileSelect
 import java.io.File
@@ -35,6 +41,13 @@ class RecipeEditFragment : Fragment() {
     private var _binding: FragmentRecipeEditBinding? = null
     private val binding get() = _binding!!
 
+
+    private val viewModel: RecipeViewModel by activityViewModels{
+        RecipeViewModelFactory((activity?.application as MyApplication).repository)
+    }
+
+    private var category : String? = null
+    private var cameraUri: Uri? = null
 //    private val RECORD_REQUEST_CODE  = 1000
 
     override fun onCreateView(
@@ -49,6 +62,7 @@ class RecipeEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.recipe_category_list,
@@ -61,7 +75,7 @@ class RecipeEditFragment : Fragment() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
                 val spinner = parent as Spinner
-                val str = spinner.selectedItem.toString()
+                category = spinner.selectedItem.toString()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -69,17 +83,7 @@ class RecipeEditFragment : Fragment() {
         }
 
 
-        binding.recipeImage.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.image_select)
-                .setItems(R.array.storage_or_camera){ dialog, which ->
-                    when(which){
-                        0 -> checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        1 -> checkPermission(Manifest.permission.CAMERA)
-                    }
-                }
-                .show()
-        }
+        binding.recipeImage.setOnClickListener { recipeImageDialog() }
 
 
         binding.recipeDateEdit.setOnClickListener { showDatePicker(binding.recipeDateEdit) }
@@ -91,11 +95,29 @@ class RecipeEditFragment : Fragment() {
         }
 
         binding.recipeSaveButton.setOnClickListener {
-            val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
-            findNavController().navigate(action)
+            addNewRecipe()
         }
 
     }
+
+    private fun addNewRecipe(){
+        if (binding.recipeTitleEdit.text != null){
+            viewModel.addNewRecipe(
+                title = binding.recipeTitleEdit.text.toString(),
+                category = category.toString(),
+                image = cameraUri.toString(),
+                ingredients = binding.recipeIngredientsEdit.toString(),
+                link = binding.recipeLinkEdit.toString(),
+                date = binding.recipeDateEdit.toString()
+            )
+
+            val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
+            findNavController().navigate(action)
+        }else{
+            Toast.makeText(requireContext(), "タイトルが未入力です", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     //パーミッション許可
     private fun checkPermission(permission: String) {
@@ -209,8 +231,6 @@ class RecipeEditFragment : Fragment() {
         selectPhotoLauncher.launch(intent)
     }
 
-    private var cameraUri: Uri? = null
-
     private val takePictureLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode != RESULT_OK) {
@@ -267,27 +287,17 @@ class RecipeEditFragment : Fragment() {
 
     }
 
-
-    //上手く結果が取れなかった？Log出力できず
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        when (requestCode){
-//            RECORD_REQUEST_CODE -> {
-//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(activity?.applicationContext, "デバイス内の写真やメディアへのアクセスが許可されました。", Toast.LENGTH_SHORT).show()
-//                    Log.d("recipeApp", "permission OK")
-//                }else{
-//                    Toast.makeText(activity?.applicationContext , "デバイス内の写真やメディアへのアクセスが許可されませんでした。", Toast.LENGTH_SHORT).show()
-//                    Log.d("recipeApp", "permission")
-//                }
-//                return
-//            }
-//        }
-//    }
-
+    private fun recipeImageDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.image_select)
+            .setItems(R.array.storage_or_camera){ dialog, which ->
+                when(which){
+                    0 -> checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    1 -> checkPermission(Manifest.permission.CAMERA)
+                }
+            }
+            .show()
+    }
 
     //日付入力
     private fun showDatePicker(editText: EditText) {
