@@ -189,7 +189,8 @@ class RecipeEditFragment : Fragment() {
                 return@registerForActivityResult
             } else {
                 try {
-                    binding.recipeImage.setImageURI(result.data?.data)
+                    cameraUri = result.data?.data
+                    binding.recipeImage.setImageURI(cameraUri)
                 } catch (e: Exception) {
                     Toast.makeText(
                         activity?.applicationContext,
