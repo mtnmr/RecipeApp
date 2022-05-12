@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
+import com.example.recipeapp.adapter.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
 import com.example.recipeapp.viewmodel.RecipeViewModelFactory
@@ -33,6 +34,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        val adapter = RecipeListAdapter{
+            val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(it.id)
+            findNavController().navigate(action)
+        }
+
+        binding.recipeRecyclerview.adapter = adapter
+
+        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
+
 
         binding.addRecipeButton.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToRecipeEditFragment()
