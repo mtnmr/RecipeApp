@@ -13,7 +13,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
           return repository.getRecipe(id).asLiveData()
     }
 
-    fun addNewRecipe(category : String,
+    fun addNewRecipe(category : Int,
                      title : String,
                      image : String?,
                      ingredients : String?,
@@ -23,7 +23,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
         insert(newRecipe)
     }
 
-    private fun getNewRecipe(category : String,
+    private fun getNewRecipe(category : Int,
                              title : String,
                              image : String?,
                              ingredients : String?,
@@ -52,7 +52,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     }
 
     fun updateRecipe(id: Int,
-                     category : String,
+                     category : Int,
                      title : String,
                      image : String?,
                      ingredients : String?,
@@ -63,7 +63,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     }
 
     private fun getUpdateRecipe(id: Int,
-                                category : String,
+                                category : Int,
                                 title : String,
                                 image : String?,
                                 ingredients : String?,

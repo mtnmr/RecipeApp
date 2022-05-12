@@ -20,6 +20,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -46,9 +47,13 @@ class RecipeEditFragment : Fragment() {
         RecipeViewModelFactory((activity?.application as MyApplication).repository)
     }
 
-    private var category : String? = null
+    private val args: RecipeDetailFragmentArgs by navArgs()
+
+    private lateinit var recipe: Recipe
+
+    private var category : Int = 0
     private var cameraUri: Uri? = null
-//    private val RECORD_REQUEST_CODE  = 1000
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +66,18 @@ class RecipeEditFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val id = args.itemId
+        if (id > 0){
+            viewModel.getRecipe(id).observe(this.viewLifecycleOwner) { item ->
+                recipe = item
+                bind(recipe)
+            }
+        }else{
+            binding.recipeSaveButton.setOnClickListener {
+                addNewRecipe()
+            }
+        }
 
 
         val adapter = ArrayAdapter.createFromResource(
@@ -75,40 +92,50 @@ class RecipeEditFragment : Fragment() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
                 val spinner = parent as Spinner
-                category = spinner.selectedItem.toString()
+                category = pos
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
-
         binding.recipeImage.setOnClickListener { recipeImageDialog() }
 
-
         binding.recipeDateEdit.setOnClickListener { showDatePicker(binding.recipeDateEdit) }
+    }
 
 
-        binding.recipeDeleteButton.setOnClickListener {
-            val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
-            findNavController().navigate(action)
+    private fun bind(recipe: Recipe){
+        binding.apply {
+            recipeTitleEdit.setText(recipe.title)
+            categorySpinner.setSelection(recipe.category)
+//            recipeImage.setImageURI(recipe.image?.toUri())
+            recipeIngredientsEdit.setText(recipe.ingredients.toString())
+            recipeLinkEdit.setText(recipe.link.toString())
+            recipeDateEdit.setText(recipe.date.toString())
+            recipeDeleteButton.visibility = View.VISIBLE
+
+            recipeDeleteButton.setOnClickListener {
+                viewModel.delete(recipe)
+                val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
+                findNavController().navigate(action)
+            }
+
+            recipeSaveButton.setOnClickListener {
+                updateRecipe()
+            }
         }
-
-        binding.recipeSaveButton.setOnClickListener {
-            addNewRecipe()
-        }
-
     }
 
     private fun addNewRecipe(){
-        if (binding.recipeTitleEdit.text != null){
+        if (binding.recipeTitleEdit.text.toString().isNotEmpty()){
             viewModel.addNewRecipe(
                 title = binding.recipeTitleEdit.text.toString(),
-                category = category.toString(),
+                category = category,
                 image = cameraUri.toString(),
-                ingredients = binding.recipeIngredientsEdit.toString(),
-                link = binding.recipeLinkEdit.toString(),
-                date = binding.recipeDateEdit.toString()
+                ingredients = binding.recipeIngredientsEdit.text.toString(),
+                link = binding.recipeLinkEdit.text.toString(),
+                date = binding.recipeDateEdit.text.toString()
             )
 
             val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
@@ -116,6 +143,20 @@ class RecipeEditFragment : Fragment() {
         }else{
             Toast.makeText(requireContext(), "タイトルが未入力です", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun updateRecipe(){
+        viewModel.updateRecipe(
+            id = args.itemId,
+            title = binding.recipeTitleEdit.text.toString(),
+            category = category,
+            image = cameraUri.toString(),
+            ingredients = binding.recipeIngredientsEdit.text.toString(),
+            link = binding.recipeLinkEdit.text.toString(),
+            date = binding.recipeDateEdit.text.toString()
+        )
+        val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
+        findNavController().navigate(action)
     }
 
 
