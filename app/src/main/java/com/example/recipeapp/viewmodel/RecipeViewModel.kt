@@ -19,8 +19,8 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
                      ingredients : String?,
                      link : String?,
                      date : String?){
-        val nerRecipe = getNewRecipe(category, title, image, ingredients, link, date)
-        insert(nerRecipe)
+        val newRecipe = getNewRecipe(category, title, image, ingredients, link, date)
+        insert(newRecipe)
     }
 
     private fun getNewRecipe(category : String,

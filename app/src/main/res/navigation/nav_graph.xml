@@ -13,14 +13,37 @@
         <action
             android:id="@+id/action_homeFragment_to_recipeEditFragment"
             app:destination="@id/recipeEditFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.recipeapp.ui.RecipeDetailFragment"
+        android:label="@string/recipe_detail_fragment_title"
+        tools:layout="@layout/fragment_recipe_detail" >
+        <argument
+            android:name="item_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_recipeEditFragment"
+            app:destination="@id/recipeEditFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/recipeEditFragment"
         android:name="com.example.recipeapp.ui.RecipeEditFragment"
         android:label="@string/recipe_edit_fragment_title"
         tools:layout="@layout/fragment_recipe_edit" >
+        <argument
+            android:name="item_id"
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_recipeEditFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

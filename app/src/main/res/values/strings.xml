@@ -20,6 +20,7 @@
 
     <string name="recipe_edit_fragment_title">レシピ編集</string>
     <string name="home_fragment_title">レシピ一覧</string>
+    <string name="recipe_detail_fragment_title">レシピ詳細</string>
 
     <string name="image_select">写真</string>
     <string-array name="storage_or_camera">
