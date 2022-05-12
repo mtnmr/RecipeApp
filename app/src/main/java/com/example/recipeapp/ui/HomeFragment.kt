@@ -16,12 +16,13 @@ import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 
 class HomeFragment : Fragment() {
 
-    private val viewModel: RecipeViewModel by activityViewModels{
+    private val viewModel: RecipeViewModel by activityViewModels {
         RecipeViewModelFactory((activity?.application as MyApplication).repository)
     }
 
-    private var _binding:FragmentHomeBinding ?= null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +49,18 @@ class HomeFragment : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+//        var word : String = "あ"
+//
+//        binding.searchButton.setOnClickListener {
+//            word = binding.searchRecipe.text.toString()
+//        }
+//
+//        viewModel.getSearchRecipe(word).observe(this.viewLifecycleOwner){ items ->
+//            items.let {
+//                adapter.submitList(it)
+//            }
+//        }
 
 
         binding.addRecipeButton.setOnClickListener {

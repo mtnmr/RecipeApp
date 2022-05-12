@@ -19,4 +19,8 @@ interface RecipeDao {
 
     @Update
     suspend fun update(recipe: Recipe)
+
+    @Query("SELECT * FROM recipes " +
+            "WHERE title LIKE '%' || :word || '%'")
+    fun getSearchRecipes(word:String): Flow<List<Recipe>>
 }
