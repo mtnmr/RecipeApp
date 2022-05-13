@@ -18,20 +18,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_text"
+            <SearchView
+                android:id="@+id/search_recipe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/search_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/search_recipe"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:background="@color/white"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:iconifiedByDefault="false"
+                android:queryHint="@string/search_text"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/search_button"
@@ -46,7 +39,7 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/room_test"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->

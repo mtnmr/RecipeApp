@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.MyApplication
@@ -43,11 +44,11 @@ class HomeFragment : Fragment() {
 
         binding.recipeRecyclerview.adapter = adapter
 
-//        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
-//            items.let {
-//                adapter.submitList(it)
-//            }
-//        }
+        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
 
         viewModel.searchRecipes.observe(this.viewLifecycleOwner){items ->
             items.let {
@@ -55,11 +56,21 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.searchButton.setOnClickListener {
-            val word = binding.searchRecipe.text.toString()
-            viewModel.changeWord(word)
-        }
+//        binding.searchButton.setOnClickListener {
+//            val word = binding.searchRecipe.text.toString()
+//            viewModel.changeWord(word)
+//        }
 
+        binding.searchRecipe.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.changeWord(newText)
+                return false
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.changeWord(query)
+                return false
+            }
+        })
 
 
         binding.addRecipeButton.setOnClickListener {

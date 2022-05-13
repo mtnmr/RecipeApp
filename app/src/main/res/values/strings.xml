@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Recipe App</string>
 
-    <string name="search_text">レシピを検索</string>
+    <string name="search_text">レシピ名か食材で検索</string>
 
     <string name="recipe_title">レシピ名</string>
     <string name="recipe_category">カテゴリー</string>
