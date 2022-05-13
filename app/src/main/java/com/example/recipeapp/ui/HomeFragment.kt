@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.MyApplication
-import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
@@ -44,23 +43,23 @@ class HomeFragment : Fragment() {
 
         binding.recipeRecyclerview.adapter = adapter
 
-        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
+//        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
+//            items.let {
+//                adapter.submitList(it)
+//            }
+//        }
+
+        viewModel.searchRecipes.observe(this.viewLifecycleOwner){items ->
             items.let {
                 adapter.submitList(it)
             }
         }
 
-//        var word : String = "あ"
-//
-//        binding.searchButton.setOnClickListener {
-//            word = binding.searchRecipe.text.toString()
-//        }
-//
-//        viewModel.getSearchRecipe(word).observe(this.viewLifecycleOwner){ items ->
-//            items.let {
-//                adapter.submitList(it)
-//            }
-//        }
+        binding.searchButton.setOnClickListener {
+            val word = binding.searchRecipe.text.toString()
+            viewModel.changeWord(word)
+        }
+
 
 
         binding.addRecipeButton.setOnClickListener {
