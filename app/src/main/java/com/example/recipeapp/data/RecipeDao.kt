@@ -22,4 +22,7 @@ interface RecipeDao {
 
     @Query("SELECT * FROM recipes WHERE title LIKE '%' || :word || '%' OR ingredients LIKE '%' || :word || '%'")
     fun getSearchRecipes(word:String): Flow<List<Recipe>>
+
+    @Query("SELECT * FROM recipes WHERE category = :num")
+    fun getCategoryRecipe(num : Int) :  Flow<List<Recipe>>
 }

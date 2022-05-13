@@ -6,18 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.MyApplication
+import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
 import com.example.recipeapp.viewmodel.RecipeViewModelFactory
+import com.example.recipeapp.viewmodel.SearchRecipeViewModel
+import com.example.recipeapp.viewmodel.SearchRecipeViewModelFactory
 
 class HomeFragment : Fragment() {
 
-    private val viewModel: RecipeViewModel by activityViewModels {
-        RecipeViewModelFactory((activity?.application as MyApplication).repository)
+    private val viewModel: SearchRecipeViewModel by activityViewModels {
+        SearchRecipeViewModelFactory((activity?.application as MyApplication).repository)
     }
 
     private var _binding: FragmentHomeBinding? = null
@@ -56,6 +60,12 @@ class HomeFragment : Fragment() {
             }
         }
 
+        viewModel.categoryRecipe.observe(this.viewLifecycleOwner){items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
+
 //        binding.searchButton.setOnClickListener {
 //            val word = binding.searchRecipe.text.toString()
 //            viewModel.changeWord(word)
@@ -82,8 +92,19 @@ class HomeFragment : Fragment() {
 //        viewModel.allRecipes.observe(this.viewLifecycleOwner){
 //            binding.roomTest.text = it.toString()
 //        }
-    }
 
+        binding.categoryGroup.setOnCheckedChangeListener { view, id ->
+            var num = -1
+            when(id){
+                R.id.category_all -> num = -1
+                R.id.category_main-> num = 0
+                R.id.category_sub -> num = 1
+                R.id.category_rice -> num = 2
+                R.id.category_dessert -> num = 3
+            }
+            viewModel.changeNum(num)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

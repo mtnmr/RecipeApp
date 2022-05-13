@@ -7,23 +7,6 @@ import kotlinx.coroutines.launch
 
 class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
 
-    val allRecipes : LiveData<List<Recipe>> = repository.appRecipes.asLiveData()
-
-    private var _word = MutableLiveData("")
-    val word :LiveData<String> = _word
-
-    fun changeWord(text : String){
-        _word.value = text
-    }
-
-    val searchRecipes = Transformations.switchMap(word){ text ->
-        getSearchRecipe(text)
-    }
-
-    private fun getSearchRecipe(word: String): LiveData<List<Recipe>>{
-        return repository.getSearchRecipes(word).asLiveData()
-    }
-
     fun getRecipe(id:Int): LiveData<Recipe>{
           return repository.getRecipe(id).asLiveData()
     }

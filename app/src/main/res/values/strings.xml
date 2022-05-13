@@ -11,6 +11,13 @@
         <item>丼・麺類</item>
         <item>デザート</item>
     </string-array>
+
+    <string name="category_all">すべて</string>
+    <string name="category_main">主菜</string>
+    <string name="category_sub">副菜</string>
+    <string name="category_rice">丼・麺類</string>
+    <string name="category_dessert">デザート</string>
+
     <string name="recipe_image">イメージ</string>
     <string name="recipe_ingredients">材料</string>
     <string name="recipe_link">リンク</string>
