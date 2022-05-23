@@ -24,6 +24,10 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.getCategoryRecipe(num)
     }
 
+    fun getRecipes(word: String, num: Int) : Flow<List<Recipe>>{
+        return recipeDao.getRecipes(word, num)
+    }
+
     suspend fun insert(recipe: Recipe){
         recipeDao.insert(recipe)
     }

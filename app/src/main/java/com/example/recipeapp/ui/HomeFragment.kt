@@ -48,11 +48,11 @@ class HomeFragment : Fragment() {
 
         binding.recipeRecyclerview.adapter = adapter
 
-        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
-            items.let {
-                adapter.submitList(it)
-            }
-        }
+//        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
+//            items.let {
+//                adapter.submitList(it)
+//            }
+//        }
 
         viewModel.searchRecipes.observe(this.viewLifecycleOwner){items ->
             items.let {
@@ -66,10 +66,17 @@ class HomeFragment : Fragment() {
             }
         }
 
+//        viewModel.recipes.observe(this.viewLifecycleOwner){items ->
+//            items.let {
+//                adapter.submitList(it)
+//            }
+//        }
+
 //        binding.searchButton.setOnClickListener {
 //            val word = binding.searchRecipe.text.toString()
 //            viewModel.changeWord(word)
 //        }
+
 
         binding.searchRecipe.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
@@ -82,17 +89,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-
-        binding.addRecipeButton.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToRecipeEditFragment()
-            findNavController().navigate(action)
-        }
-
-//Roomテスト用
-//        viewModel.allRecipes.observe(this.viewLifecycleOwner){
-//            binding.roomTest.text = it.toString()
-//        }
-
         binding.categoryGroup.setOnCheckedChangeListener { view, id ->
             var num = -1
             when(id){
@@ -103,6 +99,12 @@ class HomeFragment : Fragment() {
                 R.id.category_dessert -> num = 3
             }
             viewModel.changeNum(num)
+        }
+
+
+        binding.addRecipeButton.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToRecipeEditFragment()
+            findNavController().navigate(action)
         }
     }
 

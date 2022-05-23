@@ -1,6 +1,7 @@
 package com.example.recipeapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,7 @@ class RecipeDetailFragment : Fragment() {
         viewModel.getRecipe(id).observe(this.viewLifecycleOwner) { item ->
             recipe = item
             bind(recipe)
+            Log.d("Recipe", recipe.image.toString())
         }
     }
 
