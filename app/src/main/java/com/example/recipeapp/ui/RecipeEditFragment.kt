@@ -31,7 +31,6 @@ import com.example.recipeapp.databinding.FragmentRecipeEditBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
 import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.selects.whileSelect
 import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -43,7 +42,7 @@ class RecipeEditFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    private val viewModel: RecipeViewModel by activityViewModels{
+    private val viewModel: RecipeViewModel by activityViewModels {
         RecipeViewModelFactory((activity?.application as MyApplication).repository)
     }
 
@@ -51,7 +50,7 @@ class RecipeEditFragment : Fragment() {
 
     private lateinit var recipe: Recipe
 
-    private var category : Int = 0
+    private var category: Int = 0
     private var cameraUri: Uri? = null
 
 
@@ -68,12 +67,12 @@ class RecipeEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.itemId
-        if (id > 0){
+        if (id > 0) {
             viewModel.getRecipe(id).observe(this.viewLifecycleOwner) { item ->
                 recipe = item
                 bind(recipe)
             }
-        }else{
+        } else {
             binding.recipeSaveButton.setOnClickListener {
                 addNewRecipe()
             }
@@ -105,11 +104,11 @@ class RecipeEditFragment : Fragment() {
     }
 
 
-    private fun bind(recipe: Recipe){
+    private fun bind(recipe: Recipe) {
         binding.apply {
             recipeTitleEdit.setText(recipe.title)
             categorySpinner.setSelection(recipe.category)
-            if (recipe.image.toString() != "null"){
+            if (recipe.image.toString() != "null") {
                 recipeImage.setImageURI(recipe.image?.toUri())
             }
             recipeIngredientsEdit.setText(recipe.ingredients.toString())
@@ -129,8 +128,8 @@ class RecipeEditFragment : Fragment() {
         }
     }
 
-    private fun addNewRecipe(){
-        if (binding.recipeTitleEdit.text.toString().isNotEmpty()){
+    private fun addNewRecipe() {
+        if (binding.recipeTitleEdit.text.toString().isNotEmpty()) {
             viewModel.addNewRecipe(
                 title = binding.recipeTitleEdit.text.toString(),
                 category = category,
@@ -142,12 +141,12 @@ class RecipeEditFragment : Fragment() {
 
             val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
             findNavController().navigate(action)
-        }else{
+        } else {
             Toast.makeText(requireContext(), "タイトルが未入力です", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun updateRecipe(){
+    private fun updateRecipe() {
         viewModel.updateRecipe(
             id = args.itemId,
             title = binding.recipeTitleEdit.text.toString(),
@@ -340,8 +339,8 @@ class RecipeEditFragment : Fragment() {
     private fun recipeImageDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.image_select)
-            .setItems(R.array.storage_or_camera){ dialog, which ->
-                when(which){
+            .setItems(R.array.storage_or_camera) { _, which ->
+                when (which) {
                     0 -> checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                     1 -> checkPermission(Manifest.permission.CAMERA)
                 }

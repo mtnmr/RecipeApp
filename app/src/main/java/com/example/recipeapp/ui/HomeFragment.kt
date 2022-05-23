@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val adapter = RecipeListAdapter{
+        val adapter = RecipeListAdapter {
             val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(it.id)
             findNavController().navigate(action)
         }
@@ -58,13 +58,13 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 
-        viewModel.searchRecipes.observe(this.viewLifecycleOwner){items ->
+        viewModel.searchRecipes.observe(this.viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
         }
 
-        viewModel.categoryRecipe.observe(this.viewLifecycleOwner){items ->
+        viewModel.categoryRecipe.observe(this.viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
@@ -87,6 +87,7 @@ class HomeFragment : Fragment() {
                 viewModel.changeWord(newText)
                 return false
             }
+
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.changeWord(query)
                 return false
@@ -95,9 +96,9 @@ class HomeFragment : Fragment() {
 
         binding.categoryGroup.setOnCheckedChangeListener { view, id ->
             var num = -1
-            when(id){
+            when (id) {
                 R.id.category_all -> num = -1
-                R.id.category_main-> num = 0
+                R.id.category_main -> num = 0
                 R.id.category_sub -> num = 1
                 R.id.category_rice -> num = 2
                 R.id.category_dessert -> num = 3
