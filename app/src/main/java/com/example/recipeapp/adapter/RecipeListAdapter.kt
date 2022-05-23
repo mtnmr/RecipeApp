@@ -35,10 +35,10 @@ class RecipeListAdapter(private val onItemClicked:(Recipe) -> Unit) : ListAdapte
     class RecipeViewHolder(private val binding:RecipeListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(recipe:Recipe){
             binding.recipeListTitle.text = recipe.title
-//            val uri = recipe.image?.toUri()
-//            if (uri != null) {
-//                binding.recipeListImage.setImageURI(uri)
-//            }
+            val uri = recipe.image?.toUri()
+            if (recipe.image.toString() != "null") {
+                binding.recipeListImage.setImageURI(uri)
+            }
         }
     }
 

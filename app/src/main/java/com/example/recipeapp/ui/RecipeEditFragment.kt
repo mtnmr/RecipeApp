@@ -109,7 +109,9 @@ class RecipeEditFragment : Fragment() {
         binding.apply {
             recipeTitleEdit.setText(recipe.title)
             categorySpinner.setSelection(recipe.category)
-//            recipeImage.setImageURI(recipe.image?.toUri())
+            if (recipe.image.toString() != "null"){
+                recipeImage.setImageURI(recipe.image?.toUri())
+            }
             recipeIngredientsEdit.setText(recipe.ingredients.toString())
             recipeLinkEdit.setText(recipe.link.toString())
             recipeDateEdit.setText(recipe.date.toString())
@@ -254,6 +256,13 @@ class RecipeEditFragment : Fragment() {
                 try {
                     cameraUri = result.data?.data
                     binding.recipeImage.setImageURI(cameraUri)
+
+                    //ファイルへのアクセス権を永続的に保持
+                    val contentResolver = activity?.applicationContext?.contentResolver
+                    val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    contentResolver?.takePersistableUriPermission(cameraUri!!, takeFlags)
+
                 } catch (e: Exception) {
                     Toast.makeText(
                         activity?.applicationContext,
@@ -282,7 +291,7 @@ class RecipeEditFragment : Fragment() {
                     if (data != null) {
                         if (cameraUri != null) {
                             binding.recipeImage.setImageURI(cameraUri)
-//                            Log.d("recipe app", "$cameraUri")
+                            Log.d("recipe app", "$cameraUri")
                         } else {
                             Log.d("recipe app", "cameraUri null")
                         }

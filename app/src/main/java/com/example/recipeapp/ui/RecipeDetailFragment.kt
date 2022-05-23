@@ -46,7 +46,6 @@ class RecipeDetailFragment : Fragment() {
         viewModel.getRecipe(id).observe(this.viewLifecycleOwner) { item ->
             recipe = item
             bind(recipe)
-            Log.d("Recipe", recipe.image.toString())
         }
     }
 
@@ -54,7 +53,11 @@ class RecipeDetailFragment : Fragment() {
     private fun bind(recipe: Recipe) {
         binding.apply {
             detailTitle.text = recipe.title
-//            detailImage.setImageURI(recipe.image?.toUri())
+//            Log.d("Recipe", recipe.image.toString())
+            if (recipe.image.toString() != "null"){
+                detailImage.setImageURI(recipe.image?.toUri())
+//                Log.d("Recipe", "uri image set")
+            }
             detailIngredients.text = recipe.ingredients.toString()
             detailLink.text = recipe.link.toString()
             detailDate.text = recipe.date.toString()

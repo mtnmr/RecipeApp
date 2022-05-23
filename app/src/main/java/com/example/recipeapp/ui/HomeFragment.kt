@@ -9,6 +9,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
@@ -47,6 +48,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.recipeRecyclerview.adapter = adapter
+        binding.recipeRecyclerview.addItemDecoration(
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        )
 
 //        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
 //            items.let {
