@@ -46,4 +46,32 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
+
+    <fragment
+        android:id="@+id/shoppingListFragment"
+        android:name="com.example.recipeapp.ui.ShoppingListFragment"
+        android:label="@string/all_shopping_list_title"
+        tools:layout="@layout/fragment_shopping_list">
+        <action
+            android:id="@+id/action_shoppingListFragment_to_shoppingListDetailFragment"
+            app:destination="@id/shoppingListDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shoppingListDetailFragment"
+        android:name="com.example.recipeapp.ui.ShoppingListDetailFragment"
+        android:label="@string/shopping_list_title"
+        tools:layout="@layout/fragment_shopping_list_detail" >
+        <argument
+            android:name="item_id"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_shoppingListDetailFragment_to_shoppingListFragment"
+            app:destination="@id/shoppingListFragment"
+            app:popUpTo="@id/shoppingListFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
 </navigation>

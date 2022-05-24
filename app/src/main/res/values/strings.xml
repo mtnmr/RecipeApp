@@ -37,7 +37,10 @@
 
     <string name="sample_text">ここに内容を表示</string>
 
-
     <string name="shopping_list_title">買い物リスト</string>
+    <string name="all_shopping_list_title">買い物リスト一覧</string>
     <string name="shopping_add_text">買いたいものを追加</string>
+    <string name="shopping_list_delete">リストを削除</string>
+
+    <string name="add_recipe_title">新しいレシピを追加</string>
 </resources>

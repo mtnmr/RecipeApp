@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="@string/home_fragment_title"/>
+
+    <item
+        android:id="@+id/recipeEditFragment"
+        android:title="@string/add_recipe_title"/>
+
+    <item
+        android:id="@+id/shoppingListFragment"
+        android:title="@string/shopping_list_title"/>
+</menu>
