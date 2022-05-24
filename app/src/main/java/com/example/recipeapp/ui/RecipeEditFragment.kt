@@ -108,8 +108,9 @@ class RecipeEditFragment : Fragment() {
         binding.apply {
             recipeTitleEdit.setText(recipe.title)
             categorySpinner.setSelection(recipe.category)
+            cameraUri = recipe.image?.toUri()
             if (recipe.image.toString() != "null") {
-                recipeImage.setImageURI(recipe.image?.toUri())
+                recipeImage.setImageURI(cameraUri)
             }
             recipeIngredientsEdit.setText(recipe.ingredients.toString())
             recipeLinkEdit.setText(recipe.link.toString())
@@ -120,6 +121,7 @@ class RecipeEditFragment : Fragment() {
                 viewModel.delete(recipe)
                 val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
                 findNavController().navigate(action)
+                Toast.makeText(requireContext(), "レシピを削除しました", Toast.LENGTH_SHORT).show()
             }
 
             recipeSaveButton.setOnClickListener {

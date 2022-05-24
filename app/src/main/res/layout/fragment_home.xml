@@ -19,7 +19,6 @@
             android:id="@+id/category_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text="@string/category_all" />
         <RadioButton
             android:id="@+id/category_main"

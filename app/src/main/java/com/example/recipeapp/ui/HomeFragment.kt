@@ -28,7 +28,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,23 +57,23 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 
-        viewModel.searchRecipes.observe(this.viewLifecycleOwner) { items ->
-            items.let {
-                adapter.submitList(it)
-            }
-        }
-
-        viewModel.categoryRecipe.observe(this.viewLifecycleOwner) { items ->
-            items.let {
-                adapter.submitList(it)
-            }
-        }
-
-//        viewModel.recipes.observe(this.viewLifecycleOwner){items ->
+//        viewModel.searchRecipes.observe(this.viewLifecycleOwner) { items ->
 //            items.let {
 //                adapter.submitList(it)
 //            }
 //        }
+//
+//        viewModel.categoryRecipe.observe(this.viewLifecycleOwner) { items ->
+//            items.let {
+//                adapter.submitList(it)
+//            }
+//        }
+
+        viewModel.recipes.observe(this.viewLifecycleOwner){items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
 
 //        binding.searchButton.setOnClickListener {
 //            val word = binding.searchRecipe.text.toString()
@@ -93,6 +92,16 @@ class HomeFragment : Fragment() {
                 return false
             }
         })
+
+        binding.categoryGroup.check(
+            when(viewModel.categoryNum.value){
+                -1 -> R.id.category_all
+                0 -> R.id.category_main
+                1 -> R.id.category_sub
+                2 -> R.id.category_rice
+                else -> R.id.category_dessert
+            }
+        )
 
         binding.categoryGroup.setOnCheckedChangeListener { view, id ->
             var num = -1

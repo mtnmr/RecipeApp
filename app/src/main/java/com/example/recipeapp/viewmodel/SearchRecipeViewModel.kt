@@ -27,16 +27,22 @@ class SearchRecipeViewModel(private val repository: RecipeRepository) : ViewMode
     }
 
 
-    val searchRecipes = Transformations.switchMap(word){ text ->
-        getSearchRecipe(text)
+    private val searchRecipes = Transformations.switchMap(word){ text ->
+        when (categoryNum.value) {
+            -1 -> getSearchRecipe(text)
+            else -> getRecipes(text, categoryNum.value!!)
+        }
     }
 
     private fun getSearchRecipe(word: String): LiveData<List<Recipe>> {
         return repository.getSearchRecipes(word).asLiveData()
     }
 
-    val categoryRecipe = Transformations.switchMap(categoryNum){ num ->
-        getCategoryRecipe(num)
+    private val categoryRecipe = Transformations.switchMap(categoryNum){ num ->
+        when(num){
+            -1 -> getSearchRecipe(word.value.toString())
+            else -> getRecipes(word.value.toString(), num)
+        }
     }
 
     private fun getCategoryRecipe(num : Int) : LiveData<List<Recipe>>{
@@ -47,33 +53,19 @@ class SearchRecipeViewModel(private val repository: RecipeRepository) : ViewMode
         }
     }
 
-
     private fun getRecipes(word: String, num: Int): LiveData<List<Recipe>> {
         return repository.getRecipes(word, num).asLiveData()
     }
 
     val recipes = MediatorLiveData<List<Recipe>>()
 
-
     init {
-        recipes.addSource(word) {
-            val word = word.value.toString()
-            val num = categoryNum.value!!.toInt()
-            if (num >= 0){
-                recipes.value = getRecipes(word, num).value
-            }else{
-                recipes.value = getSearchRecipe(word).value
-            }
+        recipes.addSource(searchRecipes) {
+           recipes.value = it
         }
 
-        recipes.addSource(categoryNum) {
-            val word = word.value.toString()
-            val num = categoryNum.value!!.toInt()
-            if (num >= 0){
-                recipes.value = getRecipes(word, num).value
-            }else{
-                recipes.value = getSearchRecipe(word).value
-            }
+        recipes.addSource(categoryRecipe) {
+            recipes.value = it
         }
     }
 
