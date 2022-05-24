@@ -25,6 +25,10 @@ class ShoppingListDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.addDetailButton.setOnClickListener {
+            binding.addDetailEdit.text?.clear()
+        }
+
         binding.listDeleteButton.setOnClickListener {
             val action = ShoppingListDetailFragmentDirections.actionShoppingListDetailFragmentToShoppingListFragment()
             findNavController().navigate(action)
