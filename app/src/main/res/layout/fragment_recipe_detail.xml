@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="24dp">
 
@@ -22,12 +22,10 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:padding="8dp"
                 tools:text="@string/recipe_title"
                 android:gravity="center_horizontal"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textStyle="bold"
-                android:textSize="30dp"/>
+                style="@style/RecipeAppTextviewTitle"
+                android:textSize="30sp"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/detail_image"

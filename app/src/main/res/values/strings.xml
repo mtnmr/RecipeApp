@@ -36,4 +36,8 @@
     </string-array>
 
     <string name="sample_text">ここに内容を表示</string>
+
+
+    <string name="shopping_list_title">買い物リスト</string>
+    <string name="shopping_add_text">買いたいものを追加</string>
 </resources>
