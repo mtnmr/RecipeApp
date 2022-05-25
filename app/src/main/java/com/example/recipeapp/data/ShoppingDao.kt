@@ -21,6 +21,9 @@ interface ShoppingDao {
     @Query("SELECT * FROM shoppinglist WHERE listId = :id")
     fun getShoppingList(id: Int): Flow<ShoppingList>
 
+    @Query("SELECT * FROM shoppinglist ORDER BY listId DESC LIMIT 1")
+    fun getCurrentShoppingList() : Flow<ShoppingList>
+
 
     //detail
     @Insert(onConflict = OnConflictStrategy.REPLACE)

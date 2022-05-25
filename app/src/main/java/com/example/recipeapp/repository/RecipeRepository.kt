@@ -55,13 +55,14 @@ class RecipeRepository(private val recipeDao: RecipeDao, private val shoppingDao
         shoppingDao.deleteList(list)
     }
 
-   val allShoppingList: Flow<List<ShoppingList>> = shoppingDao.getAllShoppingList()
+    val allShoppingList: Flow<List<ShoppingList>> = shoppingDao.getAllShoppingList()
 
     fun getShoppingList(id:Int) : Flow<ShoppingList>{
         return shoppingDao.getShoppingList(id)
     }
 
-
-
+    fun getCurrentShoppingList() : Flow<ShoppingList>{
+        return shoppingDao.getCurrentShoppingList()
+    }
 
 }

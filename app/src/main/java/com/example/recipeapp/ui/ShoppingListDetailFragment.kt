@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
+import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.FragmentShoppingListDetailBinding
 import com.example.recipeapp.viewmodel.ShoppingViewModel
 import com.example.recipeapp.viewmodel.ShoppingViewModelFactory
@@ -25,6 +26,8 @@ class ShoppingListDetailFragment : Fragment() {
     private val viewModel: ShoppingViewModel by activityViewModels {
         ShoppingViewModelFactory((activity?.application as MyApplication).repository)
     }
+
+    private lateinit var shoppingList : ShoppingList
 
     private val args:ShoppingListDetailFragmentArgs by navArgs()
 
@@ -42,7 +45,12 @@ class ShoppingListDetailFragment : Fragment() {
         val id = args.itemId
         if (id >= 0) {
             viewModel.getShoppingList(id).observe(this.viewLifecycleOwner) {
+                shoppingList = it
                 binding.shoppingListTitleEdit.setText(it.listTitle)
+            }
+        }else{
+            viewModel.currentShoppingList.observe(this.viewLifecycleOwner){
+                shoppingList = it
             }
         }
 
@@ -56,7 +64,7 @@ class ShoppingListDetailFragment : Fragment() {
         }
 
         binding.listDeleteButton.setOnClickListener {
-
+            viewModel.deleteList(shoppingList)
             val action = ShoppingListDetailFragmentDirections.actionShoppingListDetailFragmentToShoppingListFragment()
             findNavController().navigate(action)
         }

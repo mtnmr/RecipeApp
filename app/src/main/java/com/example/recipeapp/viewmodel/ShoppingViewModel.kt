@@ -9,6 +9,8 @@ class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() 
 
     val allShoppingList: LiveData<List<ShoppingList>> = repository.allShoppingList.asLiveData()
 
+    val currentShoppingList:LiveData<ShoppingList> = repository.getCurrentShoppingList().asLiveData()
+
     fun addNewShoppingList() {
         val newList = ShoppingList()
         insertList(newList)
@@ -25,7 +27,7 @@ class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() 
     }
 
 
-    private fun deleteList(list: ShoppingList) {
+    fun deleteList(list: ShoppingList) {
         viewModelScope.launch {
             repository.deleteList(list)
         }
