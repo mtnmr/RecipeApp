@@ -57,5 +57,11 @@ class RecipeRepository(private val recipeDao: RecipeDao, private val shoppingDao
 
    val allShoppingList: Flow<List<ShoppingList>> = shoppingDao.getAllShoppingList()
 
+    fun getShoppingList(id:Int) : Flow<ShoppingList>{
+        return shoppingDao.getShoppingList(id)
+    }
+
+
+
 
 }

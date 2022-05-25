@@ -47,6 +47,10 @@ class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() 
             repository.updateList(list)
         }
     }
+
+    fun getShoppingList(id:Int):LiveData<ShoppingList>{
+        return repository.getShoppingList(id).asLiveData()
+    }
 }
 
 
