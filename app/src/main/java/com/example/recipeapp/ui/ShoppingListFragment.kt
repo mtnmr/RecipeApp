@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.recipeapp.MyApplication
+import com.example.recipeapp.R
 import com.example.recipeapp.adapter.ShoppingListAdapter
 import com.example.recipeapp.databinding.FragmentShoppingListBinding
 import com.example.recipeapp.viewmodel.ShoppingViewModel
@@ -52,8 +53,8 @@ class ShoppingListFragment : Fragment() {
         }
 
         binding.addListButton.setOnClickListener {
-            val id = viewModel.addNewShoppingList()
-            val action = ShoppingListFragmentDirections.actionShoppingListFragmentToShoppingListDetailFragment(id)
+            viewModel.addNewShoppingList()
+            val action = ShoppingListFragmentDirections.actionShoppingListFragmentToShoppingListDetailFragment()
             findNavController().navigate(action)
         }
     }

@@ -40,8 +40,10 @@ class ShoppingListDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.itemId
-        viewModel.getShoppingList(id).observe(this.viewLifecycleOwner){
-            binding.shoppingListTitleEdit.setText(it.listTitle.toString())
+        if (id >= 0) {
+            viewModel.getShoppingList(id).observe(this.viewLifecycleOwner) {
+                binding.shoppingListTitleEdit.setText(it.listTitle)
+            }
         }
 
         binding.shoppingListTitleEdit.setOnKeyListener{view, keycode, _ ->
