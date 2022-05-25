@@ -81,7 +81,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shopping_list_detail_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </FrameLayout>
 
     <com.google.android.material.button.MaterialButton

@@ -1,22 +1,24 @@
 package com.example.recipeapp.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.recipeapp.R
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.repository.RecipeRepository
 import kotlinx.coroutines.launch
 
 class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() {
 
-    fun addNewShoppingList(listId:Int, listTitle:String){
-        val newList = getNewShoppingList(listId, listTitle)
+    val allShoppingList : LiveData<List<ShoppingList>> = repository.allShoppingList.asLiveData()
+
+    fun addNewShoppingList() : Int{
+        val newList = ShoppingList()
         insertList(newList)
+        return newList.listId
     }
 
-    private fun getNewShoppingList(listId:Int, listTitle:String): ShoppingList{
-        return ShoppingList(listId, listTitle)
-    }
+//    private fun getNewShoppingList(listTitle:String): ShoppingList{
+//        return ShoppingList(listTitle = listTitle)
+//    }
 
     private fun insertList(list: ShoppingList){
         viewModelScope.launch {
@@ -32,8 +34,12 @@ class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() 
     }
 
     fun updateShoppingList(listId:Int, listTitle:String){
-        val updatedList = getNewShoppingList(listId, listTitle)
+        val updatedList = getUpdatedShoppingList(listId, listTitle)
         updateList(updatedList)
+    }
+
+    private fun getUpdatedShoppingList(listId:Int, listTitle:String): ShoppingList{
+        return ShoppingList(listId, listTitle)
     }
 
     private fun updateList(list: ShoppingList){

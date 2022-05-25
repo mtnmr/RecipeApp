@@ -19,8 +19,10 @@ interface ShoppingDao {
     fun getAllShoppingList(): Flow<List<ShoppingList>>
 
     @Query("SELECT * FROM shoppinglist WHERE listId = :id")
-    fun getAllShoppingList(id: Int): Flow<ShoppingList>
+    fun getShoppingList(id: Int): Flow<ShoppingList>
 
+
+    //detail
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDetail(detail: ListDetail)
 

@@ -4,8 +4,8 @@ import androidx.room.*
 
 @Entity
 data class ShoppingList(
-    @PrimaryKey val listId: Int = 0,
-    val listTitle: String
+    @PrimaryKey(autoGenerate = true) val listId: Int = 0,
+    val listTitle: String ?= "買い物リスト"
 )
 
 //@Entity(
