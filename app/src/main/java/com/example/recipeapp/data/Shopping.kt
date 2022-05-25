@@ -4,18 +4,19 @@ import androidx.room.*
 
 @Entity
 data class ShoppingList(
-    @PrimaryKey val listId: Int,
+    @PrimaryKey val listId: Int = 0,
     val listTitle: String
 )
 
-@Entity(
-    foreignKeys = [ForeignKey(
-        entity = ShoppingList::class,
-        parentColumns = arrayOf("listId"),
-        childColumns = arrayOf("parentId"),
-        onDelete = ForeignKey.CASCADE
-    )]
-)
+//@Entity(
+//    foreignKeys = [ForeignKey(
+//        entity = ShoppingList::class,
+//        parentColumns = arrayOf("listId"),
+//        childColumns = arrayOf("parentId"),
+//        onDelete = ForeignKey.CASCADE
+//    )]
+//)
+@Entity
 data class ListDetail(
     @PrimaryKey(autoGenerate = true) val detailId: Int = 0,
     val parentId: Int,
@@ -24,8 +25,8 @@ data class ListDetail(
 )
 
 
-data class ShoppingListWithDetails(
-    @Embedded val shoppingList: ShoppingList,
-    @Relation(parentColumn = "listId", entityColumn = "parentId")
-    val details: List<ListDetail>
-)
+//data class ShoppingListWithDetails(
+//    @Embedded val shoppingList: ShoppingList,
+//    @Relation(parentColumn = "listId", entityColumn = "parentId")
+//    val details: List<ListDetail>
+//)
