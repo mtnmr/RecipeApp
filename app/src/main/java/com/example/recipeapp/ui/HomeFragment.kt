@@ -93,15 +93,17 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.categoryGroup.check(
-            when(viewModel.categoryNum.value){
-                -1 -> R.id.category_all
-                0 -> R.id.category_main
-                1 -> R.id.category_sub
-                2 -> R.id.category_rice
-                else -> R.id.category_dessert
-            }
-        )
+        viewModel.categoryNum.observe(this.viewLifecycleOwner){
+            binding.categoryGroup.check(
+                when(it){
+                    -1 -> R.id.category_all
+                    0 -> R.id.category_main
+                    1 -> R.id.category_sub
+                    2 -> R.id.category_rice
+                    else -> R.id.category_dessert
+                }
+            )
+        }
 
         binding.categoryGroup.setOnCheckedChangeListener { view, id ->
             var num = -1

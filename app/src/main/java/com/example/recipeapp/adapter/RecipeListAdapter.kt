@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter.*
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.RecipeListItemBinding
@@ -35,9 +36,10 @@ class RecipeListAdapter(private val onItemClicked:(Recipe) -> Unit) : ListAdapte
     class RecipeViewHolder(private val binding:RecipeListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(recipe:Recipe){
             binding.recipeListTitle.text = recipe.title
-            val uri = recipe.image?.toUri()
             if (recipe.image.toString() != "null") {
-                binding.recipeListImage.setImageURI(uri)
+                binding.recipeListImage.setImageURI( recipe.image?.toUri())
+            }else{
+                binding.recipeListImage.setImageResource(R.drawable.ic_baseline_image_24)
             }
         }
     }
