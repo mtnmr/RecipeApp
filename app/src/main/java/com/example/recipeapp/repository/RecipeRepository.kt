@@ -2,9 +2,11 @@ package com.example.recipeapp.repository
 
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.data.RecipeDao
+import com.example.recipeapp.data.ShoppingDao
+import com.example.recipeapp.data.ShoppingList
 import kotlinx.coroutines.flow.Flow
 
-class RecipeRepository(private val recipeDao: RecipeDao) {
+class RecipeRepository(private val recipeDao: RecipeDao, private val shoppingDao: ShoppingDao) {
 
     val appRecipes : Flow<List<Recipe>> = recipeDao.getAllRecipes()
 
@@ -39,6 +41,20 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
     suspend fun update(recipe: Recipe){
         recipeDao.update(recipe)
     }
+
+    //ShoppingDao
+    suspend fun insertList(list: ShoppingList){
+        shoppingDao.insertList(list)
+    }
+
+    suspend fun updateList(list: ShoppingList){
+        shoppingDao.updateList(list)
+    }
+
+    suspend fun deleteList(list: ShoppingList){
+        shoppingDao.deleteList(list)
+    }
+
 
 
 }

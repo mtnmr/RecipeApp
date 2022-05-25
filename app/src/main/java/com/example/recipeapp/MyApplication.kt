@@ -11,6 +11,6 @@ class MyApplication : Application(){
     }
 
     val repository  by lazy {
-        RecipeRepository(database.recipeDao())
+        RecipeRepository(database.recipeDao(), database.shoppingDao())
     }
 }
