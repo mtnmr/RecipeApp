@@ -15,16 +15,16 @@ import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.FragmentShoppingListDetailBinding
-import com.example.recipeapp.viewmodel.ShoppingViewModel
-import com.example.recipeapp.viewmodel.ShoppingViewModelFactory
+import com.example.recipeapp.viewmodel.ListDetailViewModel
+import com.example.recipeapp.viewmodel.ListDetailViewModelFactory
 
 class ShoppingListDetailFragment : Fragment() {
 
     private var _binding : FragmentShoppingListDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingViewModel by activityViewModels {
-        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
+    private val viewModel: ListDetailViewModel by activityViewModels {
+        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
     }
 
     private lateinit var shoppingList : ShoppingList
@@ -44,14 +44,20 @@ class ShoppingListDetailFragment : Fragment() {
 
         val id = args.itemId
         if (id >= 0) {
-            viewModel.getShoppingList(id).observe(this.viewLifecycleOwner) {
+            viewModel.getShoppingList(id).observe(viewLifecycleOwner) {
                 shoppingList = it
                 binding.shoppingListTitleEdit.setText(it.listTitle)
+                viewModel.changeCurrentId(it.listId)
             }
         }else{
-            viewModel.currentShoppingList.observe(this.viewLifecycleOwner){
+            viewModel.currentShoppingList.observe(viewLifecycleOwner){
                 shoppingList = it
+                viewModel.changeCurrentId(shoppingList.listId)
             }
+        }
+
+        viewModel.currentListDetails.observe(viewLifecycleOwner){
+            binding.sampleText.text = it.toString()
         }
 
         binding.shoppingListTitleEdit.setOnKeyListener{view, keycode, _ ->
@@ -60,8 +66,11 @@ class ShoppingListDetailFragment : Fragment() {
 
 
         binding.addDetailButton.setOnClickListener {
+            val word = binding.addDetailEdit.text.toString()
+            viewModel.addNewDetail(shoppingList.listId, word)
             binding.addDetailEdit.text?.clear()
         }
+
 
         binding.listDeleteButton.setOnClickListener {
             viewModel.deleteList(shoppingList)

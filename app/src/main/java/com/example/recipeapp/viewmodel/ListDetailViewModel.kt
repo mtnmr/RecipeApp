@@ -1,31 +1,14 @@
 package com.example.recipeapp.viewmodel
 
 import androidx.lifecycle.*
+import com.example.recipeapp.data.ListDetail
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.repository.RecipeRepository
 import kotlinx.coroutines.launch
 
-class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() {
-
-    val allShoppingList: LiveData<List<ShoppingList>> = repository.allShoppingList.asLiveData()
+class ListDetailViewModel (private val repository: RecipeRepository) : ViewModel() {
 
     val currentShoppingList:LiveData<ShoppingList> = repository.getCurrentShoppingList().asLiveData()
-
-    fun addNewShoppingList() {
-        val newList = ShoppingList()
-        insertList(newList)
-    }
-
-//    private fun getNewShoppingList(listTitle:String): ShoppingList{
-//        return ShoppingList(listTitle = listTitle)
-//    }
-
-    private fun insertList(list: ShoppingList) {
-        viewModelScope.launch {
-            repository.insertList(list)
-        }
-    }
-
 
     fun deleteList(list: ShoppingList) {
         viewModelScope.launch {
@@ -51,15 +34,41 @@ class ShoppingViewModel(private val repository: RecipeRepository) : ViewModel() 
     fun getShoppingList(id: Int): LiveData<ShoppingList> {
         return repository.getShoppingList(id).asLiveData()
     }
+
+
+    //detail
+    fun addNewDetail(id: Int, word:String){
+        val detail = getNewDetail(id, word)
+        insertDetail(detail)
+    }
+
+    private fun getNewDetail(id:Int, word:String) : ListDetail {
+        return ListDetail(parentId = id, detailName = word, check = false)
+    }
+
+    private fun insertDetail(detail: ListDetail){
+        viewModelScope.launch {
+            repository.insertDetail(detail)
+        }
+    }
+
+    val currentId = MutableLiveData(0)
+
+    fun changeCurrentId(id:Int){
+        currentId.value = id
+    }
+
+    val currentListDetails = Transformations.switchMap(currentId){
+        repository.getListDetails(it).asLiveData()
+    }
 }
 
-
-class ShoppingViewModelFactory(private val repository: RecipeRepository) :
+class ListDetailViewModelFactory(private val repository: RecipeRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ShoppingViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(ListDetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return ShoppingViewModel(repository) as T
+            return ListDetailViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

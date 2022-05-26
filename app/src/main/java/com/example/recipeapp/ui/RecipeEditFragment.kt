@@ -68,7 +68,7 @@ class RecipeEditFragment : Fragment() {
 
         val id = args.itemId
         if (id > 0) {
-            viewModel.getRecipe(id).observe(this.viewLifecycleOwner) { item ->
+            viewModel.getRecipe(id).observe(viewLifecycleOwner) { item ->
                 recipe = item
                 bind(recipe)
             }

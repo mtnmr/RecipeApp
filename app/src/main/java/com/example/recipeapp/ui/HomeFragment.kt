@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 
-        viewModel.recipes.observe(this.viewLifecycleOwner){items ->
+        viewModel.recipes.observe(viewLifecycleOwner){items ->
             items.let {
                 adapter.submitList(it)
             }
@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.categoryNum.observe(this.viewLifecycleOwner){
+        viewModel.categoryNum.observe(viewLifecycleOwner){
             binding.categoryGroup.check(
                 when(it){
                     -1 -> R.id.category_all

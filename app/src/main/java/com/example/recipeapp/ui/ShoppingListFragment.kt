@@ -13,7 +13,7 @@ import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.ShoppingListAdapter
 import com.example.recipeapp.databinding.FragmentShoppingListBinding
-import com.example.recipeapp.viewmodel.ShoppingViewModel
+import com.example.recipeapp.viewmodel.ShoppingListViewModel
 import com.example.recipeapp.viewmodel.ShoppingViewModelFactory
 
 class ShoppingListFragment : Fragment() {
@@ -21,7 +21,7 @@ class ShoppingListFragment : Fragment() {
     private var _binding : FragmentShoppingListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingViewModel by activityViewModels {
+    private val viewModel: ShoppingListViewModel by activityViewModels {
         ShoppingViewModelFactory((activity?.application as MyApplication).repository)
     }
 

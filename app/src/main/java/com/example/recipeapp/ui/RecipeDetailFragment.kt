@@ -41,7 +41,7 @@ class RecipeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.itemId
-        viewModel.getRecipe(id).observe(this.viewLifecycleOwner) { item ->
+        viewModel.getRecipe(id).observe(viewLifecycleOwner) { item ->
             recipe = item
             bind(recipe)
         }
