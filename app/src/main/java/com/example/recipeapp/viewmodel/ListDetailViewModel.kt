@@ -78,6 +78,12 @@ class ListDetailViewModel (private val repository: RecipeRepository) : ViewModel
             repository.deleteListDetails(id)
         }
     }
+
+    fun deleteDetail(detail: ListDetail){
+        viewModelScope.launch {
+            repository.deleteDetail(detail)
+        }
+    }
 }
 
 class ListDetailViewModelFactory(private val repository: RecipeRepository) :

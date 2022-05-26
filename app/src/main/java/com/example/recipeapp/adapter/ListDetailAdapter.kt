@@ -2,6 +2,7 @@ package com.example.recipeapp.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,8 @@ import com.example.recipeapp.data.ListDetail
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.ListDetailItemBinding
 
-class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit) :
+class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit,
+                        private val onButtonClicked: (ListDetail) -> Unit ) :
     ListAdapter<ListDetail, ListDetailViewHolder>(
         diffCallback
     ) {
@@ -30,15 +32,41 @@ class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit) :
         holder.itemView.setOnClickListener {
             onItemClicked(item)
         }
+
+//        holder.itemView.setOnLongClickListener {
+//            holder.button.visibility = View.VISIBLE
+//            holder.button.setOnClickListener {
+//                onItemLongClicked(item)
+//            }
+//            true
+//        }
+        holder.button.setOnClickListener {
+                onButtonClicked(item)
+            }
+
         holder.bind(item)
     }
 
 
     class ListDetailViewHolder(private val binding: ListDetailItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        val button = binding.detailItemDeleteButton
+
         @SuppressLint("ResourceAsColor")
         fun bind(detail: ListDetail) {
             binding.detailItemName.text = detail.detailName
+
+//            binding.detailItemName.apply{
+//                if(detail.checked){
+//                    setTextColor(Color.GRAY)
+//                    paintFlags = binding.detailItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+//                }else{
+//                    setTextColor(Color.BLACK)
+//                    binding.detailItemName.paintFlags = 0
+//                }
+//            }
+
             if(detail.checked){
                 binding.checkLine.visibility = View.VISIBLE
                 binding.listDetailView.setBackgroundColor(R.color.checked_backGround)

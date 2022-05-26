@@ -21,16 +21,16 @@ import com.example.recipeapp.viewmodel.ListDetailViewModelFactory
 
 class ShoppingListDetailFragment : Fragment() {
 
-    private var _binding : FragmentShoppingListDetailBinding? = null
+    private var _binding: FragmentShoppingListDetailBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: ListDetailViewModel by activityViewModels {
         ListDetailViewModelFactory((activity?.application as MyApplication).repository)
     }
 
-    private lateinit var shoppingList : ShoppingList
+    private lateinit var shoppingList: ShoppingList
 
-    private val args:ShoppingListDetailFragmentArgs by navArgs()
+    private val args: ShoppingListDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +43,10 @@ class ShoppingListDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ListDetailAdapter{
-            viewModel.changeChecked(it)
-        }
+        val adapter = ListDetailAdapter(
+            onItemClicked = { viewModel.changeChecked(it) },
+            onButtonClicked = { viewModel.deleteDetail(it) }
+        )
 
         binding.shoppingListDetailRecyclerView.adapter = adapter
         binding.shoppingListDetailRecyclerView.addItemDecoration(
@@ -59,21 +60,21 @@ class ShoppingListDetailFragment : Fragment() {
                 binding.shoppingListTitleEdit.setText(it.listTitle)
                 viewModel.changeCurrentId(it.listId)
             }
-        }else{
-            viewModel.currentShoppingList.observe(viewLifecycleOwner){
+        } else {
+            viewModel.currentShoppingList.observe(viewLifecycleOwner) {
                 shoppingList = it
                 viewModel.changeCurrentId(shoppingList.listId)
             }
         }
 
-        viewModel.currentListDetails.observe(viewLifecycleOwner){items ->
+        viewModel.currentListDetails.observe(viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
 
         }
 
-        binding.shoppingListTitleEdit.setOnKeyListener{view, keycode, _ ->
+        binding.shoppingListTitleEdit.setOnKeyListener { view, keycode, _ ->
             handleKeyEvent(view, keycode)
         }
 
@@ -88,7 +89,8 @@ class ShoppingListDetailFragment : Fragment() {
         binding.listDeleteButton.setOnClickListener {
             viewModel.deleteList(shoppingList)
             viewModel.deleteListDetails(shoppingList.listId)
-            val action = ShoppingListDetailFragmentDirections.actionShoppingListDetailFragmentToShoppingListFragment()
+            val action =
+                ShoppingListDetailFragmentDirections.actionShoppingListDetailFragmentToShoppingListFragment()
             findNavController().navigate(action)
         }
     }
@@ -98,9 +100,10 @@ class ShoppingListDetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun handleKeyEvent(view:View, keyCode:Int): Boolean{
-        if (keyCode == KeyEvent.KEYCODE_ENTER){
-            val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            val inputMethodManager =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
             val title = binding.shoppingListTitleEdit.text
