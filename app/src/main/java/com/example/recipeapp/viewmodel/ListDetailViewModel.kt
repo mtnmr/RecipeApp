@@ -72,6 +72,12 @@ class ListDetailViewModel (private val repository: RecipeRepository) : ViewModel
             repository.updateChecked(b, id)
         }
     }
+
+    fun deleteListDetails(id:Int){
+        viewModelScope.launch {
+            repository.deleteListDetails(id)
+        }
+    }
 }
 
 class ListDetailViewModelFactory(private val repository: RecipeRepository) :

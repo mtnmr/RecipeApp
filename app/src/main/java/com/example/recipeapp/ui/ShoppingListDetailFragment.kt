@@ -87,6 +87,7 @@ class ShoppingListDetailFragment : Fragment() {
 
         binding.listDeleteButton.setOnClickListener {
             viewModel.deleteList(shoppingList)
+            viewModel.deleteListDetails(shoppingList.listId)
             val action = ShoppingListDetailFragmentDirections.actionShoppingListDetailFragmentToShoppingListFragment()
             findNavController().navigate(action)
         }

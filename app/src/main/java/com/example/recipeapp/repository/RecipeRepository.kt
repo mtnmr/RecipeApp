@@ -71,9 +71,6 @@ class RecipeRepository(private val recipeDao: RecipeDao, private val shoppingDao
         shoppingDao.deleteDetail(detail)
     }
 
-    suspend fun updateDetail(detail: ListDetail){
-        shoppingDao.updateDetail(detail)
-    }
 
     fun getListDetails(id:Int) : Flow<List<ListDetail>>{
         return shoppingDao.getListDetails(id)
