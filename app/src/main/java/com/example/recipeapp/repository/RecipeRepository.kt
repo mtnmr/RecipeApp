@@ -83,4 +83,7 @@ class RecipeRepository(private val recipeDao: RecipeDao, private val shoppingDao
         shoppingDao.deleteListDetails(id)
     }
 
+    suspend fun updateChecked(b:Boolean, id:Int){
+        shoppingDao.updateChecked(b, id)
+    }
 }

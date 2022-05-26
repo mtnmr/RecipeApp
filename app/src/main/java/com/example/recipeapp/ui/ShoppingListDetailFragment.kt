@@ -11,8 +11,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.recipeapp.MyApplication
-import com.example.recipeapp.R
+import com.example.recipeapp.adapter.ListDetailAdapter
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.FragmentShoppingListDetailBinding
 import com.example.recipeapp.viewmodel.ListDetailViewModel
@@ -42,6 +43,15 @@ class ShoppingListDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val adapter = ListDetailAdapter{
+            viewModel.changeChecked(it)
+        }
+
+        binding.shoppingListDetailRecyclerView.adapter = adapter
+        binding.shoppingListDetailRecyclerView.addItemDecoration(
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        )
+
         val id = args.itemId
         if (id >= 0) {
             viewModel.getShoppingList(id).observe(viewLifecycleOwner) {
@@ -56,8 +66,11 @@ class ShoppingListDetailFragment : Fragment() {
             }
         }
 
-        viewModel.currentListDetails.observe(viewLifecycleOwner){
-            binding.sampleText.text = it.toString()
+        viewModel.currentListDetails.observe(viewLifecycleOwner){items ->
+            items.let {
+                adapter.submitList(it)
+            }
+
         }
 
         binding.shoppingListTitleEdit.setOnKeyListener{view, keycode, _ ->

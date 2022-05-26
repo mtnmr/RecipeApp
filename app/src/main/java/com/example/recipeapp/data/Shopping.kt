@@ -21,7 +21,7 @@ data class ListDetail(
     @PrimaryKey(autoGenerate = true) val detailId: Int = 0,
     val parentId: Int,
     val detailName: String,
-    val check: Boolean
+    val checked: Boolean
 )
 
 

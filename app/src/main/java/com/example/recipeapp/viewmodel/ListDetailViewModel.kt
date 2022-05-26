@@ -43,7 +43,7 @@ class ListDetailViewModel (private val repository: RecipeRepository) : ViewModel
     }
 
     private fun getNewDetail(id:Int, word:String) : ListDetail {
-        return ListDetail(parentId = id, detailName = word, check = false)
+        return ListDetail(parentId = id, detailName = word, checked = false)
     }
 
     private fun insertDetail(detail: ListDetail){
@@ -60,6 +60,17 @@ class ListDetailViewModel (private val repository: RecipeRepository) : ViewModel
 
     val currentListDetails = Transformations.switchMap(currentId){
         repository.getListDetails(it).asLiveData()
+    }
+
+    fun changeChecked(detail: ListDetail){
+        val b = !detail.checked
+        updateChecked(b, detail.detailId)
+    }
+
+    private fun updateChecked(b:Boolean, id: Int){
+        viewModelScope.launch {
+            repository.updateChecked(b, id)
+        }
     }
 }
 
