@@ -15,18 +15,21 @@ class ShoppingListViewModel(private val repository: RecipeRepository) : ViewMode
         insertList(newList)
     }
 
-//    private fun getNewShoppingList(listTitle:String): ShoppingList{
-//        return ShoppingList(listTitle = listTitle)
-//    }
-
     private fun insertList(list: ShoppingList) {
         viewModelScope.launch {
             repository.insertList(list)
         }
     }
 
-}
+    fun makeNewShoppingList(listTitle: String){
+        val newList = getNewShoppingList(listTitle)
+        insertList(newList)
+    }
 
+    private fun getNewShoppingList(listTitle:String): ShoppingList{
+        return ShoppingList(listTitle = listTitle)
+    }
+}
 
 class ShoppingViewModelFactory(private val repository: RecipeRepository) :
     ViewModelProvider.Factory {

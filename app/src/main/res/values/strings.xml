@@ -47,4 +47,5 @@
 
     <string name="make_button">作成</string>
     <string name="cancel_button">キャンセル</string>
+    <string name="make_list_finish_text">買い物リストを作成しました</string>
 </resources>
