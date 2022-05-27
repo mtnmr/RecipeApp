@@ -10,10 +10,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.MyApplication
+import com.example.recipeapp.R
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeDetailBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
 import com.example.recipeapp.viewmodel.RecipeViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class RecipeDetailFragment : Fragment() {
 
@@ -27,6 +29,8 @@ class RecipeDetailFragment : Fragment() {
     private val args: RecipeDetailFragmentArgs by navArgs()
 
     private lateinit var recipe: Recipe
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +49,32 @@ class RecipeDetailFragment : Fragment() {
             recipe = item
             bind(recipe)
         }
+
+        binding.makeListButton.setOnClickListener {
+            showListDialog()
+        }
+
     }
 
+
+    private fun showListDialog(){
+        val selectedItems = ArrayList<Int>()
+        val items = recipe.ingredients?.split("\n")?.toTypedArray()
+        val checkedItems = BooleanArray(items?.size ?: 0)
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(recipe.title)
+            .setMultiChoiceItems(items, checkedItems) { dialog, which, isChecked ->
+                if (isChecked) {
+                    selectedItems.add(which)
+                } else if (selectedItems.contains(which)) {
+                    selectedItems.remove(which)
+                }
+            }
+            .setPositiveButton(R.string.make_button){dialog, which ->
+            }
+            .setNegativeButton(R.string.cancel_button, null)
+            .show()
+    }
 
     private fun bind(recipe: Recipe) {
         binding.apply {

@@ -43,4 +43,8 @@
     <string name="shopping_list_delete">リストを削除</string>
 
     <string name="add_recipe_title">新しいレシピを追加</string>
+    <string name="make_shopping_list">買い物リスト作成</string>
+
+    <string name="make_button">作成</string>
+    <string name="cancel_button">キャンセル</string>
 </resources>

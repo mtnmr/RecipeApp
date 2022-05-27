@@ -40,13 +40,13 @@
                         android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageButton
-                    android:id="@+id/favorite_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_baseline_favorite_border_24"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/white"/>
+<!--                <ImageButton-->
+<!--                    android:id="@+id/favorite_button"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:src="@drawable/ic_baseline_favorite_border_24"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:background="@color/white"/>-->
             </LinearLayout>
 
 
