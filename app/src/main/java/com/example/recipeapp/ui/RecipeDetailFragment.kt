@@ -10,7 +10,6 @@ import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeDetailBinding

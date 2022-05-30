@@ -8,6 +8,8 @@ class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao, pri
 
     val appRecipes : Flow<List<Recipe>> = recipeDao.getAllRecipes()
 
+    val favoriteRecipes : Flow<List<Recipe>> = recipeDao.getFavoriteRecipe()
+
     fun getAllRecipes() : Flow<List<Recipe>>{
         return recipeDao.getAllRecipes()
     }
@@ -39,6 +41,7 @@ class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao, pri
     suspend fun update(recipe: Recipe){
         recipeDao.update(recipe)
     }
+
 
     //ShoppingDao
     suspend fun insertList(list: ShoppingList){

@@ -12,5 +12,6 @@ data class Recipe(
     val image : String?,
     val ingredients : String?,
     val link : String?,
-    val date : String?
+    val date : String?,
+    val isFavorite : Boolean = false
 )

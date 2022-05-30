@@ -11,6 +11,8 @@ class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRe
 
     val allRecipes: LiveData<List<Recipe>> = repository.appRecipes.asLiveData()
 
+    val favoriteRecipes : LiveData<List<Recipe>> = repository.favoriteRecipes.asLiveData()
+
     private fun getAllRecipe(): LiveData<List<Recipe>> {
         return repository.getAllRecipes().asLiveData()
     }

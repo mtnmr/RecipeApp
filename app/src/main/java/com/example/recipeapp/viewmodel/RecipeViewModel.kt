@@ -10,76 +10,91 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
 
-    fun getRecipe(id:Int): LiveData<Recipe>{
-          return repository.getRecipe(id).asLiveData()
+    fun getRecipe(id: Int): LiveData<Recipe> {
+        return repository.getRecipe(id).asLiveData()
     }
 
-    fun addNewRecipe(category : Int,
-                     title : String,
-                     image : String?,
-                     ingredients : String?,
-                     link : String?,
-                     date : String?){
-        val newRecipe = getNewRecipe(category, title, image, ingredients, link, date)
+    fun addNewRecipe(
+        category: Int,
+        title: String,
+        image: String?,
+        ingredients: String?,
+        link: String?,
+        date: String?,
+        isFavorite: Boolean
+    ) {
+        val newRecipe = getNewRecipe(category, title, image, ingredients, link, date, isFavorite)
         insert(newRecipe)
     }
 
-    private fun getNewRecipe(category : Int,
-                             title : String,
-                             image : String?,
-                             ingredients : String?,
-                             link : String?,
-                             date : String?) : Recipe {
+    private fun getNewRecipe(
+        category: Int,
+        title: String,
+        image: String?,
+        ingredients: String?,
+        link: String?,
+        date: String?,
+        isFavorite: Boolean
+    ): Recipe {
         return Recipe(
             category = category,
             title = title,
             image = image,
             ingredients = ingredients,
             link = link,
-            date = date
+            date = date,
+            isFavorite = isFavorite
         )
     }
 
-    private fun insert(recipe:Recipe){
+    private fun insert(recipe: Recipe) {
         viewModelScope.launch {
             repository.insert(recipe)
         }
     }
 
-    fun delete(recipe: Recipe){
+    fun delete(recipe: Recipe) {
         viewModelScope.launch {
             repository.delete(recipe)
         }
     }
 
-    fun updateRecipe(id: Int,
-                     category : Int,
-                     title : String,
-                     image : String?,
-                     ingredients : String?,
-                     link : String?,
-                     date : String?) {
-        val updatedRecipe = getUpdateRecipe(id, category, title, image, ingredients, link, date)
+    fun updateRecipe(
+        id: Int,
+        category: Int,
+        title: String,
+        image: String?,
+        ingredients: String?,
+        link: String?,
+        date: String?,
+        isFavorite: Boolean
+    ) {
+        val updatedRecipe = getUpdateRecipe(id, category, title, image, ingredients, link, date, isFavorite)
         update(updatedRecipe)
     }
 
-    private fun getUpdateRecipe(id: Int,
-                                category : Int,
-                                title : String,
-                                image : String?,
-                                ingredients : String?,
-                                link : String?,
-                                date : String?) : Recipe{
+    private fun getUpdateRecipe(
+        id: Int,
+        category: Int,
+        title: String,
+        image: String?,
+        ingredients: String?,
+        link: String?,
+        date: String?,
+        isFavorite: Boolean
+    ): Recipe {
         return Recipe(
             id = id,
             category = category,
             title = title, image,
             ingredients = ingredients,
             link = link,
-            date = date)
+            date = date,
+            isFavorite = isFavorite
+        )
     }
 
-    private fun update(recipe: Recipe){
+    private fun update(recipe: Recipe) {
         viewModelScope.launch {
             repository.update(recipe)
         }

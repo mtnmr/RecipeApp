@@ -26,12 +26,10 @@ import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
-//import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -46,7 +44,7 @@ class RecipeEditFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-//    private val viewModel: RecipeViewModel by activityViewModels {
+    //    private val viewModel: RecipeViewModel by activityViewModels {
 //        RecipeViewModelFactory((activity?.application as MyApplication).repository)
 //    }
     private val viewModel: RecipeViewModel by activityViewModels()
@@ -58,6 +56,7 @@ class RecipeEditFragment : Fragment() {
     private var category: Int = 0
     private var cameraUri: Uri? = null
 
+    private var favorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +74,8 @@ class RecipeEditFragment : Fragment() {
         if (id > 0) {
             viewModel.getRecipe(id).observe(viewLifecycleOwner) { item ->
                 recipe = item
+                favorite = recipe.isFavorite
+                favoriteChange(favorite)
                 bind(recipe)
             }
         } else {
@@ -83,14 +84,9 @@ class RecipeEditFragment : Fragment() {
             }
         }
 
-        var favorite = false
         binding.favoriteButton.setOnClickListener {
             favorite = !favorite
-            if (favorite){
-                binding.favoriteButton.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
-            }else{
-                binding.favoriteButton.colorFilter = null
-            }
+            favoriteChange(favorite)
         }
 
         val adapter = ArrayAdapter.createFromResource(
@@ -117,6 +113,14 @@ class RecipeEditFragment : Fragment() {
         binding.recipeDateEdit.setOnClickListener { showDatePicker(binding.recipeDateEdit) }
     }
 
+
+    private fun favoriteChange(favorite:Boolean){
+        if (favorite) {
+            binding.favoriteButton.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
+        } else {
+            binding.favoriteButton.colorFilter = null
+        }
+    }
 
     private fun bind(recipe: Recipe) {
         binding.apply {
@@ -152,7 +156,8 @@ class RecipeEditFragment : Fragment() {
                 image = cameraUri.toString(),
                 ingredients = binding.recipeIngredientsEdit.text.toString(),
                 link = binding.recipeLinkEdit.text.toString(),
-                date = binding.recipeDateEdit.text.toString()
+                date = binding.recipeDateEdit.text.toString(),
+                isFavorite = favorite
             )
 
             val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
@@ -170,7 +175,8 @@ class RecipeEditFragment : Fragment() {
             image = cameraUri.toString(),
             ingredients = binding.recipeIngredientsEdit.text.toString(),
             link = binding.recipeLinkEdit.text.toString(),
-            date = binding.recipeDateEdit.text.toString()
+            date = binding.recipeDateEdit.text.toString(),
+            isFavorite = favorite
         )
         val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()
         findNavController().navigate(action)
