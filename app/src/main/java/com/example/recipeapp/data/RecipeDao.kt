@@ -31,4 +31,7 @@ interface RecipeDao {
 
     @Query("SELECT * FROM recipes WHERE isFavorite = 1")
     fun getFavoriteRecipe() : Flow<List<Recipe>>
+
+    @Query("UPDATE recipes SET `isFavorite` = (:b) WHERE id = :id")
+    suspend fun updateFavorite(b:Boolean, id: Int)
 }

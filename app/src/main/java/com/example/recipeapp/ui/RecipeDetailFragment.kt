@@ -43,6 +43,7 @@ class RecipeDetailFragment : Fragment() {
 
     private lateinit var recipe: Recipe
 
+    private var favorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +60,23 @@ class RecipeDetailFragment : Fragment() {
         val id = args.itemId
         recipeViewModel.getRecipe(id).observe(viewLifecycleOwner) { item ->
             recipe = item
+            favorite = recipe.isFavorite
+            if (!favorite){
+                binding.favoriteRecipeButton.visibility  = View.INVISIBLE
+            }
             bind(recipe)
+        }
+
+        binding.addFavoriteButton.setOnClickListener {
+            recipeViewModel.updateFavorite(true, id)
+            binding.addFavoriteButton.visibility = View.INVISIBLE
+            binding.favoriteRecipeButton.visibility  = View.VISIBLE
+        }
+
+        binding.favoriteRecipeButton.setOnClickListener {
+            recipeViewModel.updateFavorite(false, id)
+            binding.addFavoriteButton.visibility = View.VISIBLE
+            binding.favoriteRecipeButton.visibility  = View.INVISIBLE
         }
 
         binding.makeListButton.setOnClickListener {

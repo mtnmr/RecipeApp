@@ -69,7 +69,8 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         date: String?,
         isFavorite: Boolean
     ) {
-        val updatedRecipe = getUpdateRecipe(id, category, title, image, ingredients, link, date, isFavorite)
+        val updatedRecipe =
+            getUpdateRecipe(id, category, title, image, ingredients, link, date, isFavorite)
         update(updatedRecipe)
     }
 
@@ -97,6 +98,12 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     private fun update(recipe: Recipe) {
         viewModelScope.launch {
             repository.update(recipe)
+        }
+    }
+
+    fun updateFavorite(b: Boolean, id: Int) {
+        viewModelScope.launch {
+            repository.updateFavorite(b, id)
         }
     }
 }

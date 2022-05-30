@@ -42,6 +42,10 @@ class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao, pri
         recipeDao.update(recipe)
     }
 
+    suspend fun updateFavorite(b:Boolean, id: Int){
+        recipeDao.updateFavorite(b, id)
+    }
+
 
     //ShoppingDao
     suspend fun insertList(list: ShoppingList){

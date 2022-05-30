@@ -50,4 +50,5 @@
     <string name="make_list_finish_text">買い物リストを作成しました</string>
 
     <string name="favorite_recipe_text">お気に入りレシピ</string>
+    <string name="favorite_add_text">お気に入り登録する</string>
 </resources>
