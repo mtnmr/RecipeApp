@@ -3,8 +3,11 @@ package com.example.recipeapp.viewmodel
 import androidx.lifecycle.*
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.repository.RecipeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SearchRecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
+@HiltViewModel
+class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
 
     val allRecipes: LiveData<List<Recipe>> = repository.appRecipes.asLiveData()
 
@@ -89,12 +92,12 @@ class SearchRecipeViewModel(private val repository: RecipeRepository) : ViewMode
 //    }
 }
 
-class SearchRecipeViewModelFactory(private val repository: RecipeRepository): ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SearchRecipeViewModel::class.java)){
-            @Suppress("UNCHECKED_CAST")
-            return SearchRecipeViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+//class SearchRecipeViewModelFactory(private val repository: RecipeRepository): ViewModelProvider.Factory{
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(SearchRecipeViewModel::class.java)){
+//            @Suppress("UNCHECKED_CAST")
+//            return SearchRecipeViewModel(repository) as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}

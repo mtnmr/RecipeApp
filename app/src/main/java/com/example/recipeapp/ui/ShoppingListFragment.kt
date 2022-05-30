@@ -14,16 +14,19 @@ import com.example.recipeapp.R
 import com.example.recipeapp.adapter.ShoppingListAdapter
 import com.example.recipeapp.databinding.FragmentShoppingListBinding
 import com.example.recipeapp.viewmodel.ShoppingListViewModel
-import com.example.recipeapp.viewmodel.ShoppingViewModelFactory
+//import com.example.recipeapp.viewmodel.ShoppingViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShoppingListFragment : Fragment() {
 
     private var _binding : FragmentShoppingListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ShoppingListViewModel by activityViewModels {
-        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val viewModel: ShoppingListViewModel by activityViewModels {
+//        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+    private val viewModel: ShoppingListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

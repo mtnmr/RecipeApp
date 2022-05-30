@@ -17,16 +17,19 @@ import com.example.recipeapp.adapter.ListDetailAdapter
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.FragmentShoppingListDetailBinding
 import com.example.recipeapp.viewmodel.ListDetailViewModel
-import com.example.recipeapp.viewmodel.ListDetailViewModelFactory
+//import com.example.recipeapp.viewmodel.ListDetailViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShoppingListDetailFragment : Fragment() {
 
     private var _binding: FragmentShoppingListDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ListDetailViewModel by activityViewModels {
-        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val viewModel: ListDetailViewModel by activityViewModels {
+//        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+    private val viewModel: ListDetailViewModel by activityViewModels()
 
     private lateinit var shoppingList: ShoppingList
 

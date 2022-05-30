@@ -15,15 +15,19 @@ import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
-import com.example.recipeapp.viewmodel.RecipeViewModelFactory
+//import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 import com.example.recipeapp.viewmodel.SearchRecipeViewModel
-import com.example.recipeapp.viewmodel.SearchRecipeViewModelFactory
+//import com.example.recipeapp.viewmodel.SearchRecipeViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val viewModel: SearchRecipeViewModel by activityViewModels {
-        SearchRecipeViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val viewModel: SearchRecipeViewModel by activityViewModels {
+//        SearchRecipeViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+
+    private val viewModel: SearchRecipeViewModel by activityViewModels()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

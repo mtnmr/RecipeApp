@@ -16,23 +16,28 @@ import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeDetailBinding
 import com.example.recipeapp.viewmodel.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecipeDetailFragment : Fragment() {
 
     private var _binding: FragmentRecipeDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val recipeViewModel: RecipeViewModel by activityViewModels {
-        RecipeViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val recipeViewModel: RecipeViewModel by activityViewModels {
+//        RecipeViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+    private val recipeViewModel: RecipeViewModel by activityViewModels()
 
-    private val shoppingListViewModel: ShoppingListViewModel by activityViewModels {
-        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val shoppingListViewModel: ShoppingListViewModel by activityViewModels {
+//        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+    private val shoppingListViewModel: ShoppingListViewModel by activityViewModels()
 
-    private val detailViewModel: ListDetailViewModel by activityViewModels {
-        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val detailViewModel: ListDetailViewModel by activityViewModels {
+//        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+    private val detailViewModel: ListDetailViewModel by activityViewModels()
 
 
     private val args: RecipeDetailFragmentArgs by navArgs()
@@ -72,6 +77,9 @@ class RecipeDetailFragment : Fragment() {
         val selectedItems = ArrayList<Int>()
         val items = recipe.ingredients?.split("\n")?.toTypedArray()
         val checkedItems = BooleanArray(items?.size ?: 0)
+
+        val item = arrayOf("sample1", "sample2", "sample3")
+
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(recipe.title)
             .setMultiChoiceItems(items, checkedItems) { _, which, isChecked ->
@@ -87,6 +95,7 @@ class RecipeDetailFragment : Fragment() {
             .setNegativeButton(R.string.cancel_button) { _, _ ->
                 cancelList()
             }
+            .setCancelable(false)
             .show()
     }
 

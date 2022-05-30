@@ -29,22 +29,25 @@ import com.example.recipeapp.R
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
 import com.example.recipeapp.viewmodel.RecipeViewModel
-import com.example.recipeapp.viewmodel.RecipeViewModelFactory
+//import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class RecipeEditFragment : Fragment() {
 
     private var _binding: FragmentRecipeEditBinding? = null
     private val binding get() = _binding!!
 
 
-    private val viewModel: RecipeViewModel by activityViewModels {
-        RecipeViewModelFactory((activity?.application as MyApplication).repository)
-    }
+//    private val viewModel: RecipeViewModel by activityViewModels {
+//        RecipeViewModelFactory((activity?.application as MyApplication).repository)
+//    }
+    private val viewModel: RecipeViewModel by activityViewModels()
 
     private val args: RecipeDetailFragmentArgs by navArgs()
 

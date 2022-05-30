@@ -16,7 +16,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.recipeapp.databinding.FragmentRecipeEditBinding
 import com.example.recipeapp.ui.RecipeEditFragment
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration : AppBarConfiguration

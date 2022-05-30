@@ -4,9 +4,12 @@ import androidx.lifecycle.*
 import com.example.recipeapp.data.ListDetail
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.repository.RecipeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShoppingListViewModel(private val repository: RecipeRepository) : ViewModel() {
+@HiltViewModel
+class ShoppingListViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
 
     val allShoppingList: LiveData<List<ShoppingList>> = repository.allShoppingList.asLiveData()
 
@@ -31,13 +34,13 @@ class ShoppingListViewModel(private val repository: RecipeRepository) : ViewMode
     }
 }
 
-class ShoppingViewModelFactory(private val repository: RecipeRepository) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ShoppingListViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ShoppingListViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+//class ShoppingViewModelFactory(private val repository: RecipeRepository) :
+//    ViewModelProvider.Factory {
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(ShoppingListViewModel::class.java)) {
+//            @Suppress("UNCHECKED_CAST")
+//            return ShoppingListViewModel(repository) as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}

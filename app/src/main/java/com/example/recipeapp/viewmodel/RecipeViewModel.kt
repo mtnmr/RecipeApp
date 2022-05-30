@@ -3,9 +3,12 @@ package com.example.recipeapp.viewmodel
 import androidx.lifecycle.*
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.repository.RecipeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
+@HiltViewModel
+class RecipeViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
 
     fun getRecipe(id:Int): LiveData<Recipe>{
           return repository.getRecipe(id).asLiveData()
@@ -84,14 +87,14 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
 }
 
 
-class RecipeViewModelFactory(private val repository: RecipeRepository): ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RecipeViewModel::class.java)){
-            @Suppress("UNCHECKED_CAST")
-            return RecipeViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+//class RecipeViewModelFactory(private val repository: RecipeRepository): ViewModelProvider.Factory{
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(RecipeViewModel::class.java)){
+//            @Suppress("UNCHECKED_CAST")
+//            return RecipeViewModel(repository) as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}
 
 
