@@ -33,6 +33,10 @@ class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit,
             onItemClicked(item)
         }
 
+        holder.checkBox.setOnClickListener {
+            onItemClicked(item)
+        }
+
 //        holder.itemView.setOnLongClickListener {
 //            holder.button.visibility = View.VISIBLE
 //            holder.button.setOnClickListener {
@@ -52,28 +56,33 @@ class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit,
         RecyclerView.ViewHolder(binding.root) {
 
         val button = binding.detailItemDeleteButton
+        val checkBox = binding.checkbox
 
         @SuppressLint("ResourceAsColor")
         fun bind(detail: ListDetail) {
             binding.detailItemName.text = detail.detailName
 
-//            binding.detailItemName.apply{
-//                if(detail.checked){
-//                    setTextColor(Color.GRAY)
-//                    paintFlags = binding.detailItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//                }else{
-//                    setTextColor(Color.BLACK)
-//                    binding.detailItemName.paintFlags = 0
-//                }
-//            }
-
-            if(detail.checked){
-                binding.checkLine.visibility = View.VISIBLE
-                binding.listDetailView.setBackgroundColor(R.color.checked_backGround)
-            }else{
-                binding.checkLine.visibility =View.INVISIBLE
-                binding.listDetailView.setBackgroundColor(Color.WHITE)
+            binding.detailItemName.apply{
+                if(detail.checked){
+                    setTextColor(Color.GRAY)
+                    paintFlags = binding.detailItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    paint.isAntiAlias = true
+                    binding.checkbox.isChecked = true
+                }else{
+                    setTextColor(Color.BLACK)
+                    binding.detailItemName.paintFlags = 0
+                    paint.isAntiAlias = true
+                    binding.checkbox.isChecked = false
+                }
             }
+
+//            if(detail.checked){
+//                binding.checkLine.visibility = View.VISIBLE
+//                binding.listDetailView.setBackgroundColor(R.color.checked_backGround)
+//            }else{
+//                binding.checkLine.visibility =View.INVISIBLE
+//                binding.listDetailView.setBackgroundColor(Color.WHITE)
+//            }
         }
     }
 
