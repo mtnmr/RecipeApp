@@ -6,18 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.recipeapp.MyApplication
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentHomeBinding
-import com.example.recipeapp.viewmodel.RecipeViewModel
-//import com.example.recipeapp.viewmodel.RecipeViewModelFactory
 import com.example.recipeapp.viewmodel.SearchRecipeViewModel
-//import com.example.recipeapp.viewmodel.SearchRecipeViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

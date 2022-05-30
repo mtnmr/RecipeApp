@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.1635" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_date_picker.xml" value="0.259963768115942" />
+        <entry key="app/src/main/res/layout/fragment_favorite_recipe.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/layout/fragment_recipe_detail.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/layout/fragment_recipe_edit.xml" value="0.259963768115942" />
