@@ -23,17 +23,17 @@ class RecipeDetailFragment : Fragment() {
     private var _binding: FragmentRecipeDetailBinding? = null
     private val binding get() = _binding!!
 
-//    private val recipeViewModel: RecipeViewModel by activityViewModels {
+    //    private val recipeViewModel: RecipeViewModel by activityViewModels {
 //        RecipeViewModelFactory((activity?.application as MyApplication).repository)
 //    }
     private val recipeViewModel: RecipeViewModel by activityViewModels()
 
-//    private val shoppingListViewModel: ShoppingListViewModel by activityViewModels {
+    //    private val shoppingListViewModel: ShoppingListViewModel by activityViewModels {
 //        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
 //    }
     private val shoppingListViewModel: ShoppingListViewModel by activityViewModels()
 
-//    private val detailViewModel: ListDetailViewModel by activityViewModels {
+    //    private val detailViewModel: ListDetailViewModel by activityViewModels {
 //        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
 //    }
     private val detailViewModel: ListDetailViewModel by activityViewModels()
@@ -61,8 +61,8 @@ class RecipeDetailFragment : Fragment() {
         recipeViewModel.getRecipe(id).observe(viewLifecycleOwner) { item ->
             recipe = item
             favorite = recipe.isFavorite
-            if (!favorite){
-                binding.favoriteRecipeButton.visibility  = View.INVISIBLE
+            if (!favorite) {
+                binding.favoriteRecipeButton.visibility = View.INVISIBLE
             }
             bind(recipe)
         }
@@ -70,13 +70,13 @@ class RecipeDetailFragment : Fragment() {
         binding.addFavoriteButton.setOnClickListener {
             recipeViewModel.updateFavorite(true, id)
             binding.addFavoriteButton.visibility = View.INVISIBLE
-            binding.favoriteRecipeButton.visibility  = View.VISIBLE
+            binding.favoriteRecipeButton.visibility = View.VISIBLE
         }
 
         binding.favoriteRecipeButton.setOnClickListener {
             recipeViewModel.updateFavorite(false, id)
             binding.addFavoriteButton.visibility = View.VISIBLE
-            binding.favoriteRecipeButton.visibility  = View.INVISIBLE
+            binding.favoriteRecipeButton.visibility = View.INVISIBLE
         }
 
         binding.makeListButton.setOnClickListener {

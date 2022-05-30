@@ -114,7 +114,7 @@ class RecipeEditFragment : Fragment() {
     }
 
 
-    private fun favoriteChange(favorite:Boolean){
+    private fun favoriteChange(favorite: Boolean) {
         if (favorite) {
             binding.favoriteButton.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
         } else {

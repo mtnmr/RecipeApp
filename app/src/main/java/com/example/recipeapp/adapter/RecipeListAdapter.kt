@@ -12,7 +12,8 @@ import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.RecipeListItemBinding
 
 
-class RecipeListAdapter(private val onItemClicked:(Recipe) -> Unit) : ListAdapter<Recipe, RecipeViewHolder>(diffCallback){
+class RecipeListAdapter(private val onItemClicked: (Recipe) -> Unit) :
+    ListAdapter<Recipe, RecipeViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
 
@@ -32,13 +33,13 @@ class RecipeListAdapter(private val onItemClicked:(Recipe) -> Unit) : ListAdapte
     }
 
 
-
-    class RecipeViewHolder(private val binding:RecipeListItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(recipe:Recipe){
+    class RecipeViewHolder(private val binding: RecipeListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(recipe: Recipe) {
             binding.recipeListTitle.text = recipe.title
             if (recipe.image.toString() != "null") {
-                binding.recipeListImage.setImageURI( recipe.image?.toUri())
-            }else{
+                binding.recipeListImage.setImageURI(recipe.image?.toUri())
+            } else {
                 binding.recipeListImage.setImageResource(R.drawable.ic_baseline_image_24)
             }
         }

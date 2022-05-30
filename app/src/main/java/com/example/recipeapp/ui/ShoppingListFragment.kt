@@ -20,10 +20,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ShoppingListFragment : Fragment() {
 
-    private var _binding : FragmentShoppingListBinding? = null
+    private var _binding: FragmentShoppingListBinding? = null
     private val binding get() = _binding!!
 
-//    private val viewModel: ShoppingListViewModel by activityViewModels {
+    //    private val viewModel: ShoppingListViewModel by activityViewModels {
 //        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
 //    }
     private val viewModel: ShoppingListViewModel by activityViewModels()
@@ -39,8 +39,11 @@ class ShoppingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ShoppingListAdapter{
-            val action = ShoppingListFragmentDirections.actionShoppingListFragmentToShoppingListDetailFragment(it.listId)
+        val adapter = ShoppingListAdapter {
+            val action =
+                ShoppingListFragmentDirections.actionShoppingListFragmentToShoppingListDetailFragment(
+                    it.listId
+                )
             findNavController().navigate(action)
         }
 
@@ -49,7 +52,7 @@ class ShoppingListFragment : Fragment() {
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
 
-        viewModel.allShoppingList.observe(this.viewLifecycleOwner){items ->
+        viewModel.allShoppingList.observe(this.viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
@@ -57,7 +60,8 @@ class ShoppingListFragment : Fragment() {
 
         binding.addListButton.setOnClickListener {
             viewModel.addNewShoppingList()
-            val action = ShoppingListFragmentDirections.actionShoppingListFragmentToShoppingListDetailFragment()
+            val action =
+                ShoppingListFragmentDirections.actionShoppingListFragmentToShoppingListDetailFragment()
             findNavController().navigate(action)
         }
     }

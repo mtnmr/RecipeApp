@@ -6,13 +6,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RecipeDao {
     @Query("SELECT * FROM recipes")
-    fun getAllRecipes() : Flow<List<Recipe>>
+    fun getAllRecipes(): Flow<List<Recipe>>
 
     @Query("SELECT * FROM recipes WHERE id = :id")
-    fun getRecipe(id : Int) : Flow<Recipe>
+    fun getRecipe(id: Int): Flow<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(recipe : Recipe)
+    suspend fun insert(recipe: Recipe)
 
     @Delete
     suspend fun delete(recipe: Recipe)
@@ -21,17 +21,17 @@ interface RecipeDao {
     suspend fun update(recipe: Recipe)
 
     @Query("SELECT * FROM recipes WHERE title LIKE '%' || :word || '%' OR ingredients LIKE '%' || :word || '%'")
-    fun getSearchRecipes(word:String): Flow<List<Recipe>>
+    fun getSearchRecipes(word: String): Flow<List<Recipe>>
 
     @Query("SELECT * FROM recipes WHERE category = :num")
-    fun getCategoryRecipe(num : Int) :  Flow<List<Recipe>>
+    fun getCategoryRecipe(num: Int): Flow<List<Recipe>>
 
     @Query("SELECT * FROM recipes WHERE (title LIKE '%' || :word || '%' OR ingredients LIKE '%' || :word || '%') AND category = :num")
-    fun getRecipes(word: String, num: Int) : Flow<List<Recipe>>
+    fun getRecipes(word: String, num: Int): Flow<List<Recipe>>
 
     @Query("SELECT * FROM recipes WHERE isFavorite = 1")
-    fun getFavoriteRecipe() : Flow<List<Recipe>>
+    fun getFavoriteRecipe(): Flow<List<Recipe>>
 
     @Query("UPDATE recipes SET `isFavorite` = (:b) WHERE id = :id")
-    suspend fun updateFavorite(b:Boolean, id: Int)
+    suspend fun updateFavorite(b: Boolean, id: Int)
 }

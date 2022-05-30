@@ -9,9 +9,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListDetailViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
+class ListDetailViewModel @Inject constructor(private val repository: RecipeRepository) :
+    ViewModel() {
 
-    val currentShoppingList:LiveData<ShoppingList> = repository.getCurrentShoppingList().asLiveData()
+    val currentShoppingList: LiveData<ShoppingList> =
+        repository.getCurrentShoppingList().asLiveData()
 
     fun deleteList(list: ShoppingList) {
         viewModelScope.launch {
@@ -40,16 +42,16 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
 
 
     //detail
-    fun addNewDetail(id: Int, word:String){
+    fun addNewDetail(id: Int, word: String) {
         val detail = getNewDetail(id, word)
         insertDetail(detail)
     }
 
-    private fun getNewDetail(id:Int, word:String) : ListDetail {
+    private fun getNewDetail(id: Int, word: String): ListDetail {
         return ListDetail(parentId = id, detailName = word, checked = false)
     }
 
-    private fun insertDetail(detail: ListDetail){
+    private fun insertDetail(detail: ListDetail) {
         viewModelScope.launch {
             repository.insertDetail(detail)
         }
@@ -57,32 +59,32 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
 
     val currentId = MutableLiveData(0)
 
-    fun changeCurrentId(id:Int){
+    fun changeCurrentId(id: Int) {
         currentId.value = id
     }
 
-    val currentListDetails = Transformations.switchMap(currentId){
+    val currentListDetails = Transformations.switchMap(currentId) {
         repository.getListDetails(it).asLiveData()
     }
 
-    fun changeChecked(detail: ListDetail){
+    fun changeChecked(detail: ListDetail) {
         val b = !detail.checked
         updateChecked(b, detail.detailId)
     }
 
-    private fun updateChecked(b:Boolean, id: Int){
+    private fun updateChecked(b: Boolean, id: Int) {
         viewModelScope.launch {
             repository.updateChecked(b, id)
         }
     }
 
-    fun deleteListDetails(id:Int){
+    fun deleteListDetails(id: Int) {
         viewModelScope.launch {
             repository.deleteListDetails(id)
         }
     }
 
-    fun deleteDetail(detail: ListDetail){
+    fun deleteDetail(detail: ListDetail) {
         viewModelScope.launch {
             repository.deleteDetail(detail)
         }

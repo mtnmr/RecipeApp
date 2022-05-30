@@ -26,7 +26,7 @@ class ShoppingListDetailFragment : Fragment() {
     private var _binding: FragmentShoppingListDetailBinding? = null
     private val binding get() = _binding!!
 
-//    private val viewModel: ListDetailViewModel by activityViewModels {
+    //    private val viewModel: ListDetailViewModel by activityViewModels {
 //        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
 //    }
     private val viewModel: ListDetailViewModel by activityViewModels()

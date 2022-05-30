@@ -9,7 +9,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShoppingListViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
+class ShoppingListViewModel @Inject constructor(private val repository: RecipeRepository) :
+    ViewModel() {
 
     val allShoppingList: LiveData<List<ShoppingList>> = repository.allShoppingList.asLiveData()
 
@@ -24,12 +25,12 @@ class ShoppingListViewModel @Inject constructor(private val repository: RecipeRe
         }
     }
 
-    fun makeNewShoppingList(listTitle: String){
+    fun makeNewShoppingList(listTitle: String) {
         val newList = getNewShoppingList(listTitle)
         insertList(newList)
     }
 
-    private fun getNewShoppingList(listTitle:String): ShoppingList{
+    private fun getNewShoppingList(listTitle: String): ShoppingList {
         return ShoppingList(listTitle = listTitle)
     }
 }

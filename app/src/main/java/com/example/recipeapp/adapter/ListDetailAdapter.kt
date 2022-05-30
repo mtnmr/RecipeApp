@@ -15,8 +15,10 @@ import com.example.recipeapp.data.ListDetail
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.ListDetailItemBinding
 
-class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit,
-                        private val onButtonClicked: (ListDetail) -> Unit ) :
+class ListDetailAdapter(
+    private val onItemClicked: (ListDetail) -> Unit,
+    private val onButtonClicked: (ListDetail) -> Unit
+) :
     ListAdapter<ListDetail, ListDetailViewHolder>(
         diffCallback
     ) {
@@ -45,8 +47,8 @@ class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit,
 //            true
 //        }
         holder.button.setOnClickListener {
-                onButtonClicked(item)
-            }
+            onButtonClicked(item)
+        }
 
         holder.bind(item)
     }
@@ -62,15 +64,15 @@ class ListDetailAdapter(private val onItemClicked: (ListDetail) -> Unit,
         fun bind(detail: ListDetail) {
             binding.detailItemName.text = detail.detailName
 
-            binding.detailItemName.apply{
-                if(detail.checked){
+            binding.detailItemName.apply {
+                if (detail.checked) {
                     setTextColor(Color.GRAY)
                     paintFlags = binding.detailItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     paint.isAntiAlias = true
                     binding.checkbox.isChecked = true
-                }else{
+                } else {
                     setTextColor(Color.BLACK)
-                    binding.detailItemName.paintFlags = 0
+                    paintFlags = 0
                     paint.isAntiAlias = true
                     binding.checkbox.isChecked = false
                 }

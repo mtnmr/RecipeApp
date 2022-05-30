@@ -7,7 +7,7 @@ import com.example.recipeapp.repository.RecipeRepository
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application(){
+class MyApplication : Application() {
 //    val database : RecipeDatabase by lazy {
 //        RecipeDatabase.getDatabase(this)
 //    }

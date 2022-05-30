@@ -22,7 +22,7 @@ interface ShoppingDao {
     fun getShoppingList(id: Int): Flow<ShoppingList>
 
     @Query("SELECT * FROM shoppinglist ORDER BY listId DESC LIMIT 1")
-    fun getCurrentShoppingList() : Flow<ShoppingList>
+    fun getCurrentShoppingList(): Flow<ShoppingList>
 
 
     //detail
@@ -42,7 +42,7 @@ interface ShoppingDao {
     suspend fun deleteListDetails(id: Int)
 
     @Query("UPDATE listdetail SET `checked` = (:b) WHERE detailId = :id")
-    suspend fun updateChecked(b: Boolean, id:Int)
+    suspend fun updateChecked(b: Boolean, id: Int)
 
     //    @Transaction
 //    @Query("SELECT * FROM shoppinglist")

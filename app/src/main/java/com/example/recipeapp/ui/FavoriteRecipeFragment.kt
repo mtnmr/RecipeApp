@@ -35,7 +35,10 @@ class FavoriteRecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = RecipeListAdapter {
-            val action =FavoriteRecipeFragmentDirections.actionFavoriteRecipeFragmentToRecipeDetailFragment(it.id)
+            val action =
+                FavoriteRecipeFragmentDirections.actionFavoriteRecipeFragmentToRecipeDetailFragment(
+                    it.id
+                )
             findNavController().navigate(action)
         }
 
@@ -44,7 +47,7 @@ class FavoriteRecipeFragment : Fragment() {
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
 
-        viewModel.favoriteRecipes.observe(viewLifecycleOwner){items ->
+        viewModel.favoriteRecipes.observe(viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }

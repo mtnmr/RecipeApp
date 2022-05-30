@@ -25,9 +25,9 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun provideRecipeDao(db:RecipeDatabase) = db.recipeDao()
+    fun provideRecipeDao(db: RecipeDatabase) = db.recipeDao()
 
     @Singleton
     @Provides
-    fun provideShoppingDao(db:RecipeDatabase) = db.shoppingDao()
+    fun provideShoppingDao(db: RecipeDatabase) = db.shoppingDao()
 }

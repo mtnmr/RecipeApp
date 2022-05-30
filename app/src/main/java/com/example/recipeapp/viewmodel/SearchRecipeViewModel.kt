@@ -7,11 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel() {
+class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRepository) :
+    ViewModel() {
 
     val allRecipes: LiveData<List<Recipe>> = repository.appRecipes.asLiveData()
 
-    val favoriteRecipes : LiveData<List<Recipe>> = repository.favoriteRecipes.asLiveData()
+    val favoriteRecipes: LiveData<List<Recipe>> = repository.favoriteRecipes.asLiveData()
 
     private fun getAllRecipe(): LiveData<List<Recipe>> {
         return repository.getAllRecipes().asLiveData()
@@ -32,7 +33,7 @@ class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRe
     }
 
 
-    private val searchRecipes = Transformations.switchMap(word){ text ->
+    private val searchRecipes = Transformations.switchMap(word) { text ->
         when (categoryNum.value) {
             -1 -> getSearchRecipe(text)
             else -> getRecipes(text, categoryNum.value!!)
@@ -43,17 +44,17 @@ class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRe
         return repository.getSearchRecipes(word).asLiveData()
     }
 
-    private val categoryRecipe = Transformations.switchMap(categoryNum){ num ->
-        when(num){
+    private val categoryRecipe = Transformations.switchMap(categoryNum) { num ->
+        when (num) {
             -1 -> getSearchRecipe(word.value.toString())
             else -> getRecipes(word.value.toString(), num)
         }
     }
 
-    private fun getCategoryRecipe(num : Int) : LiveData<List<Recipe>>{
+    private fun getCategoryRecipe(num: Int): LiveData<List<Recipe>> {
         return if (num >= 0) {
             repository.getCategoryRecipe(num).asLiveData()
-        }else{
+        } else {
             getAllRecipe()
         }
     }
@@ -66,7 +67,7 @@ class SearchRecipeViewModel @Inject constructor(private val repository: RecipeRe
 
     init {
         recipes.addSource(searchRecipes) {
-           recipes.value = it
+            recipes.value = it
         }
 
         recipes.addSource(categoryRecipe) {
