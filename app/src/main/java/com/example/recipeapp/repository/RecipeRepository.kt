@@ -94,4 +94,8 @@ class RecipeRepository @Inject constructor(
     suspend fun updateChecked(b: Boolean, id: Int) {
         shoppingDao.updateChecked(b, id)
     }
+
+    suspend fun deleteDetail(id:Int){
+        shoppingDao.deleteDetail(id)
+    }
 }

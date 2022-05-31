@@ -84,9 +84,15 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
         }
     }
 
-    fun deleteDetail(detail: ListDetail) {
+//    fun deleteDetail(detail: ListDetail) {
+//        viewModelScope.launch {
+//            repository.deleteDetail(detail)
+//        }
+//    }
+
+    fun deleteDetail(id: Int) {
         viewModelScope.launch {
-            repository.deleteDetail(detail)
+            repository.deleteDetail(id)
         }
     }
 }

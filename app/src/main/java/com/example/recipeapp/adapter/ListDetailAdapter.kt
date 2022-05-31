@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +17,17 @@ import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.databinding.ListDetailItemBinding
 
 class ListDetailAdapter(
-    private val onItemClicked: (ListDetail) -> Unit,
-    private val onButtonClicked: (ListDetail) -> Unit
+    private val onItemClicked: (ListDetail) -> Unit
 ) :
     ListAdapter<ListDetail, ListDetailViewHolder>(
         diffCallback
     ) {
+
+    var tracker: SelectionTracker<Long>? = null
+
+    init {
+        setHasStableIds(true)            // Stable ID利用の宣言
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListDetailViewHolder {
         return ListDetailViewHolder(
@@ -39,25 +45,21 @@ class ListDetailAdapter(
             onItemClicked(item)
         }
 
-//        holder.itemView.setOnLongClickListener {
-//            holder.button.visibility = View.VISIBLE
-//            holder.button.setOnClickListener {
-//                onItemLongClicked(item)
-//            }
-//            true
-//        }
-        holder.button.setOnClickListener {
-            onButtonClicked(item)
-        }
-
         holder.bind(item)
+
+        tracker?.let {
+            holder.itemView.isActivated = it.isSelected(getItemId(position))
+        }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).detailId.toLong()
     }
 
 
     class ListDetailViewHolder(private val binding: ListDetailItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val button = binding.detailItemDeleteButton
         val checkBox = binding.checkbox
 
         @SuppressLint("ResourceAsColor")

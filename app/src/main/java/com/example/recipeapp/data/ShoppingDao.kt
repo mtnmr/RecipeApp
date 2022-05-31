@@ -44,6 +44,9 @@ interface ShoppingDao {
     @Query("UPDATE listdetail SET `checked` = (:b) WHERE detailId = :id")
     suspend fun updateChecked(b: Boolean, id: Int)
 
+    @Query("DELETE FROM listdetail WHERE detailId = :id")
+    suspend fun deleteDetail(id: Int)
+
     //    @Transaction
 //    @Query("SELECT * FROM shoppinglist")
 //    fun getShoppingListAndDetails(): Flow<List<ShoppingListWithDetails>>
