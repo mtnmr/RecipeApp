@@ -25,6 +25,8 @@
     <string name="recipe_delete">削除</string>
     <string name="recipe_save">保存</string>
 
+    <string name="ingredients_helper_text">材料ごとに改行して入力してください</string>
+
     <string name="recipe_edit_fragment_title">レシピ編集</string>
     <string name="home_fragment_title">レシピ一覧</string>
     <string name="recipe_detail_fragment_title">レシピ詳細</string>
@@ -36,6 +38,7 @@
     </string-array>
 
     <string name="sample_text">ここに内容を表示</string>
+    <string name="text_nothing">未登録</string>
 
     <string name="shopping_list_title">買い物リスト</string>
     <string name="all_shopping_list_title">買い物リスト一覧</string>
@@ -43,7 +46,7 @@
     <string name="shopping_list_delete">リストを削除</string>
 
     <string name="add_recipe_title">新しいレシピを追加</string>
-    <string name="make_shopping_list">買い物リスト作成</string>
+    <string name="make_shopping_list">買い物リストを作成</string>
 
     <string name="make_button">作成</string>
     <string name="cancel_button">キャンセル</string>

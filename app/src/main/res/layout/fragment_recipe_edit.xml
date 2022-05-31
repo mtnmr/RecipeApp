@@ -80,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="@string/recipe_ingredients">
+                android:hint="@string/recipe_ingredients"
+                app:helperText="@string/ingredients_helper_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/recipe_ingredients_edit"
