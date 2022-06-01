@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="checked_backGround">#949697</color>
+
+    <color name="blue">#00F</color>
+    <color name="red">#F00</color>
+    <color name="grayColor">#777</color>
 </resources>

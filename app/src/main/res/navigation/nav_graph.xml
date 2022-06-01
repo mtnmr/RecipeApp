@@ -88,4 +88,10 @@
             app:destination="@id/recipeDetailFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/cookingCalendarFragment"
+        android:name="com.example.recipeapp.ui.CookingCalendarFragment"
+        android:label="@string/calendar_label"
+        tools:layout="@layout/fragment_cooking_calendar" />
+
 </navigation>

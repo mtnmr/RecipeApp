@@ -55,4 +55,16 @@
     <string name="favorite_recipe_text">お気に入りレシピ</string>
     <string name="favorite_add_text">お気に入り登録する</string>
     <string name="delete">delete</string>
+
+    <string name="sample_calendar_title">2022.6</string>
+    <string name="prev_month_button">前の月</string>
+    <string name="next_month_button">次の月</string>
+    <string name="calendar_label">献立カレンダー</string>
+    <string name="sun">日</string>
+    <string name="mon">月</string>
+    <string name="tue">火</string>
+    <string name="wed">水</string>
+    <string name="thu">木</string>
+    <string name="fri">金</string>
+    <string name="sat">土</string>
 </resources>

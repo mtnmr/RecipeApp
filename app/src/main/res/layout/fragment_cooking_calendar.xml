@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.CookingCalendarFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grayColor"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tools:text="@string/sample_calendar_title"
+                style="@style/RecipeAppTextviewTitle"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/prevButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/prev_month_button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/next_month_button"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="1dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginHorizontal="1dp"
+                android:text="@string/sun"
+                android:textColor="@color/red" />
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginEnd="1dp"
+                android:text="@string/mon" />
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginEnd="1dp"
+                android:text="@string/tue" />
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginEnd="1dp"
+                android:text="@string/wed" />
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginEnd="1dp"
+                android:text="@string/thu" />
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginEnd="1dp"
+                android:text="@string/fri" />
+
+            <TextView
+                style="@style/CalendarDayOfWeek"
+                android:layout_marginEnd="1dp"
+                android:text="@string/sat"
+                android:textColor="@color/blue" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15" />
+    </LinearLayout>
+
+</FrameLayout>
