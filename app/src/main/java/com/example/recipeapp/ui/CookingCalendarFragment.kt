@@ -28,7 +28,7 @@ class CookingCalendarFragment : Fragment() {
 
     private val viewModel: CalendarViewModel by activityViewModels()
 
-    private val args: CookingCalendarFragmentArgs by navArgs()
+    private var dateList = listOf<CalendarItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,14 +43,11 @@ class CookingCalendarFragment : Fragment() {
 
         val recyclerView = binding.recyclerview
 
-        val dateList = viewModel.getDays()
         val adapter = CalendarCellAdapter(dateList) { item, pos, content ->
-//            Toast.makeText(requireContext(), "Calendar Tap Test", Toast.LENGTH_SHORT).show()
             val selectDate = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN).format(item.date)
             val action =
                 CookingCalendarFragmentDirections.actionCookingCalendarFragmentToCalendarEditFragment(
                     selectDate = selectDate,
-                    position = pos,
                     mainDish = content
                 )
             findNavController().navigate(action)
@@ -59,24 +56,21 @@ class CookingCalendarFragment : Fragment() {
         recyclerView.layoutManager =
             GridLayoutManager(requireContext(), 7, RecyclerView.VERTICAL, false)
 
-        val pos = args.position
-        if (pos >= 0) {
-            val oldItem = dateList[pos]
-            dateList[pos] = CalendarItem(date = oldItem.date, content = args.mainDish)
-            adapter.notifyItemChanged(pos)
+
+        viewModel.dataList.observe(viewLifecycleOwner){
+            adapter.dateList = it
+            adapter.notifyDataSetChanged()
         }
 
         binding.titleText.text = viewModel.getTitle()
 
         binding.prevButton.setOnClickListener {
-            adapter.dateList = viewModel.prevMonth()
-            adapter.notifyDataSetChanged()
+            viewModel.prevMonth()
             binding.titleText.text = viewModel.getTitle()
         }
 
         binding.nextButton.setOnClickListener {
-            adapter.dateList = viewModel.nextMonth()
-            adapter.notifyDataSetChanged()
+            viewModel.nextMonth()
             binding.titleText.text = viewModel.getTitle()
         }
     }

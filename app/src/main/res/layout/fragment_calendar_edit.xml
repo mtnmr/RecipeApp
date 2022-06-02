@@ -68,7 +68,7 @@
                     android:id="@+id/cook_memo_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

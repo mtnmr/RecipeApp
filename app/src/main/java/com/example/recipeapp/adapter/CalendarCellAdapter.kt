@@ -39,6 +39,7 @@ class CalendarCellAdapter(
         val item = dateList[position]
         holder.dayText.text = SimpleDateFormat("d", Locale.JAPAN).format(item.date)
         holder.contentText.text = item.content
+
         when {
             position % 7 == 0 -> {
                 holder.dayText.setTextColor(Color.RED)

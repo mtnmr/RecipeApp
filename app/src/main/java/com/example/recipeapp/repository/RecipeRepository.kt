@@ -114,7 +114,11 @@ class RecipeRepository @Inject constructor(
         cookingDao.updateCooking(cooking)
     }
 
-    suspend fun getCooking(date:String) : Cooking{
-        return cookingDao.getCooking(date)
+//    suspend fun getCooking(date:String) : Cooking{
+//        return cookingDao.getCooking(date)
+//    }
+
+    fun getCookingList(date:String) : Flow<List<Cooking>>{
+        return cookingDao.getCookingList(date)
     }
 }

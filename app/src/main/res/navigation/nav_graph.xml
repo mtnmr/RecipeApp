@@ -93,14 +93,6 @@
         android:name="com.example.recipeapp.ui.CookingCalendarFragment"
         android:label="@string/calendar_label"
         tools:layout="@layout/fragment_cooking_calendar">
-        <argument
-            android:name="main_dish"
-            android:defaultValue=""
-            app:argType="string" />
-        <argument
-            android:name="position"
-            android:defaultValue="-1"
-            app:argType="integer" />
         <action
             android:id="@+id/action_cookingCalendarFragment_to_calendarEditFragment"
             app:destination="@id/calendarEditFragment" />
@@ -118,10 +110,6 @@
             android:name="select_date"
             android:defaultValue="2022/6/1"
             app:argType="string" />
-        <argument
-            android:name="position"
-            android:defaultValue="-1"
-            app:argType="integer" />
         <argument
             android:name="main_dish"
             android:defaultValue=""
