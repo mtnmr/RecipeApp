@@ -57,7 +57,7 @@ class CookingCalendarFragment : Fragment() {
             GridLayoutManager(requireContext(), 7, RecyclerView.VERTICAL, false)
 
 
-        viewModel.dataList.observe(viewLifecycleOwner){
+        viewModel.dataList.observe(viewLifecycleOwner) {
             adapter.dateList = it
             adapter.notifyDataSetChanged()
         }

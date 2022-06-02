@@ -43,11 +43,43 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
         }
     }
 
+    fun updateCooking(
+        id: Int,
+        date: String,
+        main: String,
+        side: String,
+        memo: String
+    ) {
+        val updatedCooking = getUpdatedCooking(id, date, main, side, memo)
+        updateCooking(updatedCooking)
+    }
 
-    fun getCooking(date:String) : LiveData<Cooking>{
+    private fun getUpdatedCooking(
+        id: Int,
+        date: String,
+        main: String,
+        side: String,
+        memo: String
+    ): Cooking {
+        return Cooking(id, date, main, side, memo)
+    }
+
+    private fun updateCooking(cooking: Cooking) {
+        viewModelScope.launch {
+            repository.updateCooking(cooking)
+        }
+    }
+
+
+    fun getCooking(date: String): LiveData<Cooking> {
         return repository.getCooking(date).asLiveData()
     }
 
+    fun deleteCooking(cooking: Cooking) {
+        viewModelScope.launch {
+            repository.deleteCooking(cooking)
+        }
+    }
 
 
     private var currentDate = MutableLiveData(myCalendar.time)
@@ -90,16 +122,16 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
             }
         }
 
-            myCalendar.time = startDate
+        myCalendar.time = startDate
 
-            return days
-        }
+        return days
+    }
 
 
     fun nextMonth() {
         myCalendar.add(Calendar.MONTH, 1)
         currentDate.value = myCalendar.time
-        }
+    }
 
     fun prevMonth() {
         myCalendar.add(Calendar.MONTH, -1)

@@ -18,6 +18,6 @@ interface CookingDao {
     @Query("SELECT * From cooking_menu WHERE date = :date LIMIT 1")
     fun getCooking(date: String): Flow<Cooking>
 
-    @Query("SELECT * From cooking_menu WHERE date LIKE :date || '%'")
+    @Query("SELECT * From cooking_menu WHERE date LIKE :date || '%' ORDER BY date ASC")
     fun getCookingList(date: String): Flow<List<Cooking>>
 }

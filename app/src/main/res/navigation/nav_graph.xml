@@ -105,7 +105,9 @@
         tools:layout="@layout/fragment_calendar_edit">
         <action
             android:id="@+id/action_calendarEditFragment_to_cookingCalendarFragment"
-            app:destination="@id/cookingCalendarFragment" />
+            app:destination="@id/cookingCalendarFragment"
+            app:popUpTo="@+id/cookingCalendarFragment"
+            app:popUpToInclusive="true"/>
         <argument
             android:name="select_date"
             android:defaultValue="2022/6/1"
