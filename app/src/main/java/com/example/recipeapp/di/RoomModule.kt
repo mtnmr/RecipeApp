@@ -30,4 +30,8 @@ class RoomModule {
     @Singleton
     @Provides
     fun provideShoppingDao(db: RecipeDatabase) = db.shoppingDao()
+
+    @Singleton
+    @Provides
+    fun provideCookingDao(db : RecipeDatabase) = db.cookingDao()
 }

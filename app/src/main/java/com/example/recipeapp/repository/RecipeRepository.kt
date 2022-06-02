@@ -6,7 +6,8 @@ import javax.inject.Inject
 
 class RecipeRepository @Inject constructor(
     private val recipeDao: RecipeDao,
-    private val shoppingDao: ShoppingDao
+    private val shoppingDao: ShoppingDao,
+    private val cookingDao: CookingDao
 ) {
 
     val appRecipes: Flow<List<Recipe>> = recipeDao.getAllRecipes()
@@ -97,5 +98,23 @@ class RecipeRepository @Inject constructor(
 
     suspend fun deleteDetail(id:Int){
         shoppingDao.deleteDetail(id)
+    }
+
+
+    //cooking
+    suspend fun insertCooking(cooking: Cooking){
+        cookingDao.insertCooking(cooking)
+    }
+
+    suspend fun deleteCooking(cooking: Cooking){
+        cookingDao.deleteCooking(cooking)
+    }
+
+    suspend fun updateCooking(cooking: Cooking){
+        cookingDao.updateCooking(cooking)
+    }
+
+    suspend fun getCooking(date:String) : Cooking{
+        return cookingDao.getCooking(date)
     }
 }

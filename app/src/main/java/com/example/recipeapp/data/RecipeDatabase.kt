@@ -5,10 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Recipe::class, ShoppingList::class, ListDetail::class], version = 8, exportSchema = false)
+@Database(
+    entities = [Recipe::class, ShoppingList::class, ListDetail::class, Cooking::class],
+    version = 10,
+    exportSchema = false
+)
 abstract class RecipeDatabase : RoomDatabase() {
-    abstract fun recipeDao() : RecipeDao
+    abstract fun recipeDao(): RecipeDao
     abstract fun shoppingDao(): ShoppingDao
+    abstract fun cookingDao(): CookingDao
 
 //    companion object{
 //        @Volatile
