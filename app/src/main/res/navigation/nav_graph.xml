@@ -92,6 +92,36 @@
         android:id="@+id/cookingCalendarFragment"
         android:name="com.example.recipeapp.ui.CookingCalendarFragment"
         android:label="@string/calendar_label"
-        tools:layout="@layout/fragment_cooking_calendar" />
+        tools:layout="@layout/fragment_cooking_calendar" >
+        <argument
+            android:name="main_dish"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_cookingCalendarFragment_to_calendarEditFragment"
+            app:destination="@id/calendarEditFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/calendarEditFragment"
+        android:name="com.example.recipeapp.ui.CalendarEditFragment"
+        android:label="@string/cooking_date_label"
+        tools:layout="@layout/fragment_calendar_edit" >
+        <action
+            android:id="@+id/action_calendarEditFragment_to_cookingCalendarFragment"
+            app:destination="@id/cookingCalendarFragment" />
+        <argument
+            android:name="select_date"
+            app:argType="string"
+            android:defaultValue="2022/6/1"/>
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
 
 </navigation>

@@ -13,7 +13,7 @@ class CalendarViewModel @Inject constructor()  : ViewModel(){
 
     private val myCalendar = Calendar.getInstance(Locale.JAPAN)
 
-    fun getDays() : List<CalendarItem>{
+    fun getDays() : ArrayList<CalendarItem>{
         val startDate = myCalendar.time
         val cnt:Int = myCalendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 7
 

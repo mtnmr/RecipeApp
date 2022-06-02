@@ -1,13 +1,16 @@
 package com.example.recipeapp.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.CalendarCellAdapter.ItemViewHolder
+import com.example.recipeapp.data.Recipe
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,15 +19,19 @@ data class CalendarItem(
     val content: String? = "sample"
 )
 
-class CalendarCellAdapter( var dateList: List<CalendarItem>) : RecyclerView.Adapter<ItemViewHolder>(){
+class CalendarCellAdapter(
+    var dateList: List<CalendarItem>,
+    private val onItemClicked: (CalendarItem,Int) -> Unit
+) : RecyclerView.Adapter<ItemViewHolder>() {
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dayText: TextView = itemView.findViewById(R.id.day)
-        val contentText : TextView = itemView.findViewById(R.id.content)
+        val contentText: TextView = itemView.findViewById(R.id.content)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.calendar_cell, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.calendar_cell, parent, false)
         return ItemViewHolder(view)
     }
 
@@ -42,6 +49,10 @@ class CalendarCellAdapter( var dateList: List<CalendarItem>) : RecyclerView.Adap
             else -> {
                 holder.dayText.setTextColor(Color.BLACK)
             }
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClicked(item,position)
         }
     }
 
