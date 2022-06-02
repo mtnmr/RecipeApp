@@ -40,6 +40,13 @@ class CalendarEditFragment : Fragment() {
         binding.cookDate.text = selectedDate
         binding.mainDishEdit.setText(args.mainDish)
 
+        viewModel.getCooking(selectedDate).observe(viewLifecycleOwner){
+            if(it != null){
+                binding.sideDishEdit.setText(it.side)
+                binding.cookMemoEdit.setText(it.memo)
+            }
+        }
+
         binding.cookingDeleteButton.setOnClickListener {
             val action =
                 CalendarEditFragmentDirections.actionCalendarEditFragmentToCookingCalendarFragment()

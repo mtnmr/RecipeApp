@@ -43,7 +43,7 @@ class CookingCalendarFragment : Fragment() {
 
         val recyclerView = binding.recyclerview
 
-        val adapter = CalendarCellAdapter(dateList) { item, pos, content ->
+        val adapter = CalendarCellAdapter(dateList) { item, content ->
             val selectDate = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN).format(item.date)
             val action =
                 CookingCalendarFragmentDirections.actionCookingCalendarFragmentToCalendarEditFragment(

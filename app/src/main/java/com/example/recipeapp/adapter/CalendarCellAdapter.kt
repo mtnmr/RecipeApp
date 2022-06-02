@@ -21,7 +21,7 @@ data class CalendarItem(
 
 class CalendarCellAdapter(
     var dateList: List<CalendarItem>,
-    private val onItemClicked: (CalendarItem, Int, String) -> Unit
+    private val onItemClicked: (CalendarItem, String) -> Unit
 ) : RecyclerView.Adapter<ItemViewHolder>() {
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -53,7 +53,7 @@ class CalendarCellAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            onItemClicked(item, position, item.content)
+            onItemClicked(item, item.content)
         }
     }
 

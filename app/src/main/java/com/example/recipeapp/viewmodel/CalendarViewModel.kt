@@ -5,11 +5,8 @@ import com.example.recipeapp.adapter.CalendarItem
 import com.example.recipeapp.data.Cooking
 import com.example.recipeapp.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -47,6 +44,12 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     }
 
 
+    fun getCooking(date:String) : LiveData<Cooking>{
+        return repository.getCooking(date).asLiveData()
+    }
+
+
+
     private var currentDate = MutableLiveData(myCalendar.time)
 
     private var roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
@@ -58,7 +61,7 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
         getDays(list)
     }
 
-    fun getDays(roomList: List<Cooking>): ArrayList<CalendarItem> {
+    private fun getDays(roomList: List<Cooking>): ArrayList<CalendarItem> {
         val startDate = myCalendar.time
         val cnt: Int = myCalendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 7
 

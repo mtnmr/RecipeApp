@@ -16,7 +16,7 @@ interface CookingDao {
     suspend fun updateCooking(cooking: Cooking)
 
     @Query("SELECT * From cooking_menu WHERE date = :date LIMIT 1")
-    suspend fun getCooking(date: String): Cooking
+    fun getCooking(date: String): Flow<Cooking>
 
     @Query("SELECT * From cooking_menu WHERE date LIKE :date || '%'")
     fun getCookingList(date: String): Flow<List<Cooking>>
