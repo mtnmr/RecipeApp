@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.recipeapp.ui.HomeFragment"
         android:label="@string/home_fragment_title"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_recipeEditFragment"
             app:destination="@id/recipeEditFragment" />
@@ -22,7 +22,7 @@
         android:id="@+id/recipeDetailFragment"
         android:name="com.example.recipeapp.ui.RecipeDetailFragment"
         android:label="@string/recipe_detail_fragment_title"
-        tools:layout="@layout/fragment_recipe_detail" >
+        tools:layout="@layout/fragment_recipe_detail">
         <argument
             android:name="item_id"
             app:argType="integer" />
@@ -35,7 +35,7 @@
         android:id="@+id/recipeEditFragment"
         android:name="com.example.recipeapp.ui.RecipeEditFragment"
         android:label="@string/recipe_edit_fragment_title"
-        tools:layout="@layout/fragment_recipe_edit" >
+        tools:layout="@layout/fragment_recipe_edit">
         <argument
             android:name="item_id"
             android:defaultValue="-1"
@@ -44,7 +44,7 @@
             android:id="@+id/action_recipeEditFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
 
@@ -62,7 +62,7 @@
         android:id="@+id/shoppingListDetailFragment"
         android:name="com.example.recipeapp.ui.ShoppingListDetailFragment"
         android:label="@string/shopping_list_title"
-        tools:layout="@layout/fragment_shopping_list_detail" >
+        tools:layout="@layout/fragment_shopping_list_detail">
         <argument
             android:name="item_id"
             android:defaultValue="-1"
@@ -71,14 +71,14 @@
             android:id="@+id/action_shoppingListDetailFragment_to_shoppingListFragment"
             app:destination="@id/shoppingListFragment"
             app:popUpTo="@id/shoppingListFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/favoriteRecipeFragment"
         android:name="com.example.recipeapp.ui.FavoriteRecipeFragment"
         android:label="@string/favorite_recipe_text"
-        tools:layout="@layout/fragment_favorite_recipe" >
+        tools:layout="@layout/fragment_favorite_recipe">
         <argument
             android:name="item_id"
             android:defaultValue="-1"
@@ -92,15 +92,15 @@
         android:id="@+id/cookingCalendarFragment"
         android:name="com.example.recipeapp.ui.CookingCalendarFragment"
         android:label="@string/calendar_label"
-        tools:layout="@layout/fragment_cooking_calendar" >
+        tools:layout="@layout/fragment_cooking_calendar">
         <argument
             android:name="main_dish"
-            app:argType="string"
-            android:defaultValue=""/>
+            android:defaultValue=""
+            app:argType="string" />
         <argument
             android:name="position"
-            app:argType="integer"
-            android:defaultValue="-1"/>
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_cookingCalendarFragment_to_calendarEditFragment"
             app:destination="@id/calendarEditFragment" />
@@ -110,18 +110,22 @@
         android:id="@+id/calendarEditFragment"
         android:name="com.example.recipeapp.ui.CalendarEditFragment"
         android:label="@string/cooking_date_label"
-        tools:layout="@layout/fragment_calendar_edit" >
+        tools:layout="@layout/fragment_calendar_edit">
         <action
             android:id="@+id/action_calendarEditFragment_to_cookingCalendarFragment"
             app:destination="@id/cookingCalendarFragment" />
         <argument
             android:name="select_date"
-            app:argType="string"
-            android:defaultValue="2022/6/1"/>
+            android:defaultValue="2022/6/1"
+            app:argType="string" />
         <argument
             android:name="position"
-            app:argType="integer"
-            android:defaultValue="-1"/>
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="main_dish"
+            android:defaultValue=""
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -34,6 +34,10 @@ class CalendarEditFragment : Fragment() {
         val selectedDate = args.selectDate
         binding.cookDate.text = selectedDate
 
+        if (args.mainDish != "") {
+            binding.mainDishEdit.setText(args.mainDish)
+        }
+
         binding.cookingDeleteButton.setOnClickListener {
             val action =
                 CalendarEditFragmentDirections.actionCalendarEditFragmentToCookingCalendarFragment(
@@ -45,7 +49,7 @@ class CalendarEditFragment : Fragment() {
         binding.cookingSaveButton.setOnClickListener {
             val action =
                 CalendarEditFragmentDirections.actionCalendarEditFragmentToCookingCalendarFragment(
-                    mainDish = "main",
+                    mainDish = binding.mainDishEdit.text.toString(),
                     position = args.position
                 )
             findNavController().navigate(action)

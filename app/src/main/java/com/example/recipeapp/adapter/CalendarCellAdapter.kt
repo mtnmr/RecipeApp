@@ -16,12 +16,12 @@ import java.util.*
 
 data class CalendarItem(
     val date: Date,
-    val content: String? = "sample"
+    val content: String = ""
 )
 
 class CalendarCellAdapter(
     var dateList: List<CalendarItem>,
-    private val onItemClicked: (CalendarItem,Int) -> Unit
+    private val onItemClicked: (CalendarItem, Int, String) -> Unit
 ) : RecyclerView.Adapter<ItemViewHolder>() {
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -52,7 +52,7 @@ class CalendarCellAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            onItemClicked(item,position)
+            onItemClicked(item, position, item.content)
         }
     }
 

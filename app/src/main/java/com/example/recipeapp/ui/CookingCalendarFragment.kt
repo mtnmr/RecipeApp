@@ -44,10 +44,15 @@ class CookingCalendarFragment : Fragment() {
         val recyclerView = binding.recyclerview
 
         val dateList = viewModel.getDays()
-        val adapter = CalendarCellAdapter(dateList) { item, pos ->
+        val adapter = CalendarCellAdapter(dateList) { item, pos, content ->
 //            Toast.makeText(requireContext(), "Calendar Tap Test", Toast.LENGTH_SHORT).show()
             val selectDate = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN).format(item.date)
-            val action = CookingCalendarFragmentDirections.actionCookingCalendarFragmentToCalendarEditFragment(selectDate, pos)
+            val action =
+                CookingCalendarFragmentDirections.actionCookingCalendarFragmentToCalendarEditFragment(
+                    selectDate = selectDate,
+                    position = pos,
+                    mainDish = content
+                )
             findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
@@ -55,7 +60,7 @@ class CookingCalendarFragment : Fragment() {
             GridLayoutManager(requireContext(), 7, RecyclerView.VERTICAL, false)
 
         val pos = args.position
-        if (pos >= 0){
+        if (pos >= 0) {
             val oldItem = dateList[pos]
             dateList[pos] = CalendarItem(date = oldItem.date, content = args.mainDish)
             adapter.notifyItemChanged(pos)
