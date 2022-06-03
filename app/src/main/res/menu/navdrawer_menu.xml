@@ -6,6 +6,11 @@
         android:icon="@drawable/ic_baseline_list_24"/>
 
     <item
+        android:id="@+id/favoriteRecipeFragment"
+        android:title="@string/favorite_recipe_text"
+        android:icon="@drawable/ic_baseline_favorite_24"/>
+
+    <item
         android:id="@+id/recipeEditFragment"
         android:title="@string/add_recipe_title"
         android:icon="@drawable/ic_baseline_edit_24"/>
@@ -14,11 +19,6 @@
         android:id="@+id/shoppingListFragment"
         android:title="@string/shopping_list_title"
         android:icon="@drawable/ic_baseline_shopping_basket_24"/>
-
-    <item
-        android:id="@+id/favoriteRecipeFragment"
-        android:title="@string/favorite_recipe_text"
-        android:icon="@drawable/ic_baseline_favorite_24"/>
 
     <item
         android:id="@+id/cookingCalendarFragment"

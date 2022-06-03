@@ -17,23 +17,25 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     fun addNewRecipe(
         category: Int,
         title: String,
-        image: String?,
-        ingredients: String?,
-        link: String?,
-        date: String?,
+        image: String,
+        ingredients: String,
+        link: String,
+        date: String,
+        memo:String,
         isFavorite: Boolean
     ) {
-        val newRecipe = getNewRecipe(category, title, image, ingredients, link, date, isFavorite)
+        val newRecipe = getNewRecipe(category, title, image, ingredients, link, date, memo, isFavorite)
         insert(newRecipe)
     }
 
     private fun getNewRecipe(
         category: Int,
         title: String,
-        image: String?,
-        ingredients: String?,
-        link: String?,
-        date: String?,
+        image: String,
+        ingredients: String,
+        link: String,
+        date: String,
+        memo: String,
         isFavorite: Boolean
     ): Recipe {
         return Recipe(
@@ -43,6 +45,7 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
             ingredients = ingredients,
             link = link,
             date = date,
+            memo = memo,
             isFavorite = isFavorite
         )
     }
@@ -63,14 +66,15 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         id: Int,
         category: Int,
         title: String,
-        image: String?,
-        ingredients: String?,
-        link: String?,
-        date: String?,
+        image: String,
+        ingredients: String,
+        link: String,
+        date: String,
+        memo: String,
         isFavorite: Boolean
     ) {
         val updatedRecipe =
-            getUpdateRecipe(id, category, title, image, ingredients, link, date, isFavorite)
+            getUpdateRecipe(id, category, title, image, ingredients, link, date, memo, isFavorite)
         update(updatedRecipe)
     }
 
@@ -78,10 +82,11 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         id: Int,
         category: Int,
         title: String,
-        image: String?,
-        ingredients: String?,
-        link: String?,
-        date: String?,
+        image: String,
+        ingredients: String,
+        link: String,
+        date: String,
+        memo: String,
         isFavorite: Boolean
     ): Recipe {
         return Recipe(
@@ -91,6 +96,7 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
             ingredients = ingredients,
             link = link,
             date = date,
+            memo = memo,
             isFavorite = isFavorite
         )
     }

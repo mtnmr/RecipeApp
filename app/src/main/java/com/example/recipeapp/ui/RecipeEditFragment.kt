@@ -131,6 +131,7 @@ class RecipeEditFragment : Fragment() {
                 recipeImage.setImageURI(cameraUri)
             }
             recipeIngredientsEdit.setText(recipe.ingredients.toString())
+            recipeMemoEdit.setText(recipe.memo.toString())
             recipeLinkEdit.setText(recipe.link.toString())
             recipeDateEdit.setText(recipe.date.toString())
             recipeDeleteButton.visibility = View.VISIBLE
@@ -157,6 +158,7 @@ class RecipeEditFragment : Fragment() {
                 ingredients = binding.recipeIngredientsEdit.text.toString(),
                 link = binding.recipeLinkEdit.text.toString(),
                 date = binding.recipeDateEdit.text.toString(),
+                memo = binding.recipeMemoEdit.text.toString(),
                 isFavorite = favorite
             )
 
@@ -176,6 +178,7 @@ class RecipeEditFragment : Fragment() {
             ingredients = binding.recipeIngredientsEdit.text.toString(),
             link = binding.recipeLinkEdit.text.toString(),
             date = binding.recipeDateEdit.text.toString(),
+            memo = binding.recipeMemoEdit.text.toString(),
             isFavorite = favorite
         )
         val action = RecipeEditFragmentDirections.actionRecipeEditFragmentToHomeFragment()

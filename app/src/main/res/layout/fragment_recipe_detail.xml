@@ -99,6 +99,24 @@
                 tools:text="@string/sample_text"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/detail_memo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RecipeAppTextviewTitle"
+                app:layout_constraintTop_toBottomOf="@+id/detail_ingredients"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/recipe_memo"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/detail_memo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_link_title"
+                style="@style/RecipeAppTextviewDetail"
+                tools:text="@string/sample_text"/>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/detail_link_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

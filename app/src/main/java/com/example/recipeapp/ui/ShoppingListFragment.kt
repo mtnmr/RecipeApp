@@ -23,9 +23,6 @@ class ShoppingListFragment : Fragment() {
     private var _binding: FragmentShoppingListBinding? = null
     private val binding get() = _binding!!
 
-    //    private val viewModel: ShoppingListViewModel by activityViewModels {
-//        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
-//    }
     private val viewModel: ShoppingListViewModel by activityViewModels()
 
     override fun onCreateView(

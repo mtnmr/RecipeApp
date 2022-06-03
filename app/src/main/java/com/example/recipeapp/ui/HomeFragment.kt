@@ -18,10 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-//    private val viewModel: SearchRecipeViewModel by activityViewModels {
-//        SearchRecipeViewModelFactory((activity?.application as MyApplication).repository)
-//    }
-
     private val viewModel: SearchRecipeViewModel by activityViewModels()
 
     private var _binding: FragmentHomeBinding? = null

@@ -142,6 +142,7 @@ class RecipeDetailFragment : Fragment() {
 //                Log.d("Recipe", "uri image set")
             }
             detailIngredients.text = recipe.ingredients.toString()
+            detailMemo.text = recipe.memo.toString()
             detailLink.text = recipe.link.toString()
             detailDate.text = recipe.date.toString()
 

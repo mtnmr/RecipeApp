@@ -13,5 +13,6 @@ data class Recipe(
     val ingredients: String?,
     val link: String?,
     val date: String?,
+    val memo:String?,
     val isFavorite: Boolean = false
 )
