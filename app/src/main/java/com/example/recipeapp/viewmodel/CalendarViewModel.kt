@@ -138,4 +138,15 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
         myCalendar.add(Calendar.MONTH, -1)
         _currentDate.value = myCalendar.time
     }
+
+    private var _word = MutableLiveData("")
+    val word: LiveData<String> = _word
+
+    fun changeWord(text: String) {
+        _word.value = text
+    }
+
+    val history = Transformations.switchMap(word) { text ->
+        repository.getHistoryASC(text).asLiveData()
+    }
 }

@@ -46,35 +46,11 @@ class HomeFragment : Fragment() {
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
 
-//        viewModel.allRecipes.observe(this.viewLifecycleOwner){ items ->
-//            items.let {
-//                adapter.submitList(it)
-//            }
-//        }
-
-//        viewModel.searchRecipes.observe(this.viewLifecycleOwner) { items ->
-//            items.let {
-//                adapter.submitList(it)
-//            }
-//        }
-//
-//        viewModel.categoryRecipe.observe(this.viewLifecycleOwner) { items ->
-//            items.let {
-//                adapter.submitList(it)
-//            }
-//        }
-
         viewModel.recipes.observe(viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
         }
-
-//        binding.searchButton.setOnClickListener {
-//            val word = binding.searchRecipe.text.toString()
-//            viewModel.changeWord(word)
-//        }
-
 
         binding.searchRecipe.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
