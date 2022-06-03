@@ -74,4 +74,11 @@
     <string name="side_dish_hint">一緒に作ったもの</string>
     <string name="cook_memo_hint">メモ</string>
     <string name="cooking_date_label">献立記録</string>
+
+
+    <string name="cooking_history_title">献立履歴を検索</string>
+    <string name="history_search_text">料理名で検索</string>
+    <string name="main_dish">メイン料理：%1$s</string>
+    <string name="side_dish">一緒に作ったもの：</string>
+    <string name="memo">メモ：</string>
 </resources>

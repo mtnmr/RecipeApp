@@ -118,4 +118,10 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/cookingHistoryFragment"
+        android:name="com.example.recipeapp.ui.CookingHistoryFragment"
+        android:label="@string/cooking_history_title"
+        tools:layout="@layout/fragment_cooking_history" />
+
 </navigation>
