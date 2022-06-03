@@ -82,7 +82,8 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     }
 
 
-    private var currentDate = MutableLiveData(myCalendar.time)
+    private var _currentDate = MutableLiveData(myCalendar.time)
+    val currentDate:LiveData<Date> = _currentDate
 
     private var roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
         val date = SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(it)
@@ -130,15 +131,11 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
 
     fun nextMonth() {
         myCalendar.add(Calendar.MONTH, 1)
-        currentDate.value = myCalendar.time
+        _currentDate.value = myCalendar.time
     }
 
     fun prevMonth() {
         myCalendar.add(Calendar.MONTH, -1)
-        currentDate.value = myCalendar.time
-    }
-
-    fun getTitle(): String {
-        return SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(myCalendar.time)
+        _currentDate.value = myCalendar.time
     }
 }

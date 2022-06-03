@@ -20,5 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:minHeight="50dp"
-        tools:text="content" />
+        android:textSize="10sp"
+        tools:text="content"
+        tools:ignore="SmallSp" />
 </LinearLayout>

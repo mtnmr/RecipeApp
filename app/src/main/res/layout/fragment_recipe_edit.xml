@@ -37,7 +37,9 @@
                         android:id="@+id/recipe_title_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="text"/>
+                        android:inputType="text">
+                        <requestFocus/>
+                    </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
@@ -137,6 +139,8 @@
        app:layout_constraintBottom_toBottomOf="parent"
        android:layout_margin="24dp"
        android:visibility="invisible"
+        android:textStyle="bold"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
        android:text="@string/recipe_delete"/>
 
     <com.google.android.material.button.MaterialButton
@@ -147,6 +151,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="24dp"
+        android:textStyle="bold"
         android:text="@string/recipe_save"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

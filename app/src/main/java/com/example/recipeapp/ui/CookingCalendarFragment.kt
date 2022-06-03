@@ -43,6 +43,11 @@ class CookingCalendarFragment : Fragment() {
 
         val recyclerView = binding.recyclerview
 
+        viewModel.currentDate.observe(viewLifecycleOwner){
+            val thisMonth = SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(it)
+            binding.titleText.text = thisMonth
+        }
+
         val adapter = CalendarCellAdapter(dateList) { item, content ->
             val selectDate = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN).format(item.date)
             val action =
@@ -62,16 +67,12 @@ class CookingCalendarFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        binding.titleText.text = viewModel.getTitle()
-
         binding.prevButton.setOnClickListener {
             viewModel.prevMonth()
-            binding.titleText.text = viewModel.getTitle()
         }
 
         binding.nextButton.setOnClickListener {
             viewModel.nextMonth()
-            binding.titleText.text = viewModel.getTitle()
         }
     }
 

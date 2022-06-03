@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,15 @@ class CalendarCellAdapter(
         val item = dateList[position]
         holder.dayText.text = SimpleDateFormat("d", Locale.JAPAN).format(item.date)
         holder.contentText.text = item.content
+
+        val format = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN)
+        val today = format.format(Calendar.getInstance(Locale.JAPAN).time)
+        val day = format.format(item.date)
+        if(today == day){
+            holder.dayText.setBackgroundColor(Color.YELLOW)
+        }else{
+            holder.dayText.setBackgroundColor(Color.WHITE)
+        }
 
         when {
             position % 7 == 0 -> {
