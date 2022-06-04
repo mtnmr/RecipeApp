@@ -82,13 +82,34 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     }
 
 
-    private var _currentDate = MutableLiveData(myCalendar.time)
+    private val _currentDate = MutableLiveData(myCalendar.time)
     val currentDate:LiveData<Date> = _currentDate
 
-    private var roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
-        val date = SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(it)
-        repository.getCookingList(date).asLiveData()
+//    private val roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
+//        val date = SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(it)
+//        repository.getCookingList(date).asLiveData()
+//    }
+//
+
+    private val format =  SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN)
+
+    private val roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
+
+        val startDate = myCalendar.time
+        val cnt: Int = myCalendar.getActualMaximum(Calendar.WEEK_OF_MONTH) * 7
+        myCalendar.set(Calendar.DATE, 1)
+        val dayOfWeek: Int = myCalendar.get(Calendar.DAY_OF_WEEK) - 1
+        myCalendar.add(Calendar.DATE, -dayOfWeek)
+
+        val start = myCalendar.time
+        myCalendar.add(Calendar.DATE, cnt)
+        val end = myCalendar.time
+
+        myCalendar.time = startDate
+
+        repository.getNewCookingList(format.format(start), format.format(end)).asLiveData()
     }
+
 
     val dataList: LiveData<ArrayList<CalendarItem>> = Transformations.map(roomData) { list ->
         getDays(list)
@@ -108,7 +129,7 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
             var index = 0
             for (i in 1..cnt) {
                 var content = ""
-                val date = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN).format(myCalendar.time)
+                val date = format.format(myCalendar.time)
                 if (index < roomList.size && roomList[index].date == date) {
                     content = roomList[index].main
                     index++
