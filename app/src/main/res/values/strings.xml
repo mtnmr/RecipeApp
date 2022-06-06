@@ -81,4 +81,6 @@
     <string name="main_dish">メイン料理：%1$s</string>
     <string name="side_dish">一緒に作ったもの：</string>
     <string name="memo">メモ：</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

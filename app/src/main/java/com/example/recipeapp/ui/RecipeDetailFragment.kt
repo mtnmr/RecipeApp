@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
@@ -23,19 +24,11 @@ class RecipeDetailFragment : Fragment() {
     private var _binding: FragmentRecipeDetailBinding? = null
     private val binding get() = _binding!!
 
-    //    private val recipeViewModel: RecipeViewModel by activityViewModels {
-//        RecipeViewModelFactory((activity?.application as MyApplication).repository)
-//    }
     private val recipeViewModel: RecipeViewModel by activityViewModels()
 
-    //    private val shoppingListViewModel: ShoppingListViewModel by activityViewModels {
-//        ShoppingViewModelFactory((activity?.application as MyApplication).repository)
-//    }
+
     private val shoppingListViewModel: ShoppingListViewModel by activityViewModels()
 
-    //    private val detailViewModel: ListDetailViewModel by activityViewModels {
-//        ListDetailViewModelFactory((activity?.application as MyApplication).repository)
-//    }
     private val detailViewModel: ListDetailViewModel by activityViewModels()
 
 
@@ -85,6 +78,12 @@ class RecipeDetailFragment : Fragment() {
 
         detailViewModel.currentShoppingList.observe(viewLifecycleOwner) {}
 
+        binding.detailImage.setOnClickListener {
+            val dialog = FullScreenDialogFragment()
+            dialog.uri = recipe.image.toString()
+            dialog.show(parentFragmentManager, "dialog")
+        }
+
     }
 
 
@@ -93,8 +92,6 @@ class RecipeDetailFragment : Fragment() {
         val selectedItems = ArrayList<Int>()
         val items = recipe.ingredients?.split("\n")?.toTypedArray()
         val checkedItems = BooleanArray(items?.size ?: 0)
-
-        val item = arrayOf("sample1", "sample2", "sample3")
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(recipe.title)
