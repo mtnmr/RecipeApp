@@ -1,6 +1,7 @@
 package com.example.recipeapp.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,7 +32,11 @@ class CookingHistoryAdapter: ListAdapter<Cooking, CookingHistoryViewHolder>(diff
             binding.date.text = cooking.date
             binding.mainDish.text = cooking.main
             binding.sideDish.text = cooking.side
-            binding.memo.text = cooking.memo
+            if (cooking.memo != ""){
+                binding.memoImage.visibility = View.VISIBLE
+                binding.memo.visibility = View.VISIBLE
+                binding.memo.text = cooking.memo
+            }
         }
     }
 

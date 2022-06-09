@@ -34,9 +34,9 @@ class CookingHistoryFragment : Fragment() {
 
         val adapter = CookingHistoryAdapter()
         binding.historyRecyclerview.adapter = adapter
-        binding.historyRecyclerview.addItemDecoration(
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        )
+//        binding.historyRecyclerview.addItemDecoration(
+//            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+//        )
 
         viewModel.history.observe(viewLifecycleOwner) { items ->
             items.let {

@@ -43,9 +43,6 @@ class FavoriteRecipeFragment : Fragment() {
         }
 
         binding.favoriteRecipeRecyclerview.adapter = adapter
-        binding.favoriteRecipeRecyclerview.addItemDecoration(
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        )
 
         viewModel.favoriteRecipes.observe(viewLifecycleOwner) { items ->
             items.let {

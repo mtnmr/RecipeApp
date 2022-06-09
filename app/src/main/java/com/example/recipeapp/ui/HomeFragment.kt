@@ -42,9 +42,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.recipeRecyclerview.adapter = adapter
-        binding.recipeRecyclerview.addItemDecoration(
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        )
+//        binding.recipeRecyclerview.addItemDecoration(
+//            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+//        )
 
         viewModel.recipes.observe(viewLifecycleOwner) { items ->
             items.let {

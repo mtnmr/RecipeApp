@@ -45,9 +45,6 @@ class ShoppingListFragment : Fragment() {
         }
 
         binding.shoppingListRecyclerView.adapter = adapter
-        binding.shoppingListRecyclerView.addItemDecoration(
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        )
 
         viewModel.allShoppingList.observe(this.viewLifecycleOwner) { items ->
             items.let {
