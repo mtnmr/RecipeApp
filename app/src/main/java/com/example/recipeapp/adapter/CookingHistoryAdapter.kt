@@ -32,10 +32,13 @@ class CookingHistoryAdapter: ListAdapter<Cooking, CookingHistoryViewHolder>(diff
             binding.date.text = cooking.date
             binding.mainDish.text = cooking.main
             binding.sideDish.text = cooking.side
-            if (cooking.memo != ""){
+            if (cooking.memo.isNotEmpty()){
                 binding.memoImage.visibility = View.VISIBLE
                 binding.memo.visibility = View.VISIBLE
                 binding.memo.text = cooking.memo
+            }else{
+                binding.memoImage.visibility = View.GONE
+                binding.memo.visibility = View.GONE
             }
         }
     }
