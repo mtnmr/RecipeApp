@@ -34,7 +34,7 @@ class CookingCalendarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCookingCalendarBinding.inflate(inflater, container, false)
+        _binding =  FragmentCookingCalendarBinding.inflate(inflater, container, false)
         return binding.root
     }
 

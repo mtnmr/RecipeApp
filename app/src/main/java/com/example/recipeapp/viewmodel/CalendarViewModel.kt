@@ -16,8 +16,6 @@ import kotlin.collections.ArrayList
 class CalendarViewModel @Inject constructor(private val repository: RecipeRepository) :
     ViewModel() {
 
-    private val myCalendar = Calendar.getInstance(Locale.JAPAN)
-
     fun addNewCooking(
         date: String,
         main: String,
@@ -81,9 +79,10 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
         }
     }
 
+    private val myCalendar = Calendar.getInstance(Locale.JAPAN)
 
     private val _currentDate = MutableLiveData(myCalendar.time)
-    val currentDate:LiveData<Date> = _currentDate
+    val currentDate: LiveData<Date> = _currentDate
 
 //    private val roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
 //        val date = SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(it)
@@ -91,7 +90,7 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
 //    }
 //
 
-    private val format =  SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN)
+    private val format = SimpleDateFormat("yyyy.MM.dd", Locale.JAPAN)
 
     private val roomData: LiveData<List<Cooking>> = Transformations.switchMap(currentDate) {
 
@@ -157,6 +156,12 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
 
     fun prevMonth() {
         myCalendar.add(Calendar.MONTH, -1)
+        _currentDate.value = myCalendar.time
+    }
+
+    //カレンダーの表示月を画面遷移から戻ってくるたびに今月に戻すなら使う
+    fun currentMonth() {
+        myCalendar.time = Calendar.getInstance(Locale.JAPAN).time
         _currentDate.value = myCalendar.time
     }
 
