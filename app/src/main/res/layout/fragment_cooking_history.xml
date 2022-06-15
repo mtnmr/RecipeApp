@@ -20,23 +20,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <SearchView
+                <androidx.appcompat.widget.SearchView
                     android:id="@+id/search_history"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:iconifiedByDefault="false"
-                    android:queryHint="@string/history_search_text"/>
+                    app:iconifiedByDefault="false"
+                    app:queryHint="@string/history_search_text"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/sort_button"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_baseline_sort_24"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    android:layout_marginEnd="16dp"
-                    tools:ignore="RtlHardcoded" />
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/sort_button"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:icon="@drawable/ic_baseline_sort_24"-->
+<!--                    app:iconGravity="textStart"-->
+<!--                    app:iconPadding="0dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    tools:ignore="RtlHardcoded" />-->
 
             </LinearLayout>
 
