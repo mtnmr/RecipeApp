@@ -36,6 +36,7 @@
     <string-array name="storage_or_camera">
         <item>フォルダから選択</item>
         <item>カメラを起動</item>
+        <item>現在の写真を削除</item>
     </string-array>
 
     <string name="sample_text">ここに内容を表示</string>

@@ -43,10 +43,6 @@ class RecipeEditFragment : Fragment() {
     private var _binding: FragmentRecipeEditBinding? = null
     private val binding get() = _binding!!
 
-
-    //    private val viewModel: RecipeViewModel by activityViewModels {
-//        RecipeViewModelFactory((activity?.application as MyApplication).repository)
-//    }
     private val viewModel: RecipeViewModel by activityViewModels()
 
     private val args: RecipeDetailFragmentArgs by navArgs()
@@ -186,6 +182,24 @@ class RecipeEditFragment : Fragment() {
     }
 
 
+    private fun recipeImageDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.image_select)
+            .setItems(R.array.storage_or_camera) { _, which ->
+                when (which) {
+                    0 -> checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    1 -> checkPermission(Manifest.permission.CAMERA)
+                    2 -> deletePhoto()
+                }
+            }
+            .show()
+    }
+
+    private fun deletePhoto(){
+        cameraUri = null
+        binding.recipeImage.setImageResource(R.drawable.ic_baseline_image_24)
+    }
+
     //パーミッション許可
     private fun checkPermission(permission: String) {
         if (ActivityCompat.checkSelfPermission(
@@ -199,6 +213,36 @@ class RecipeEditFragment : Fragment() {
             }
         } else {
             requestPermission(permission)
+        }
+    }
+
+    private fun requestPermission(permission: String) {
+        when (permission) {
+            Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        permission
+                    )
+                ) {
+                    storagePermissionLauncher.launch(permission)
+                } else {
+                    //説明を表示する処理？
+                    storagePermissionLauncher.launch(permission)
+                }
+            }
+
+            Manifest.permission.CAMERA -> {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        permission
+                    )
+                ) {
+                    cameraPermissionLauncher.launch(permission)
+                } else {
+                    //説明を表示する処理？
+                    cameraPermissionLauncher.launch(permission)
+                }
+            }
         }
     }
 
@@ -242,34 +286,13 @@ class RecipeEditFragment : Fragment() {
             }
         }
 
-    private fun requestPermission(permission: String) {
-        when (permission) {
-            Manifest.permission.READ_EXTERNAL_STORAGE -> {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        requireActivity(),
-                        permission
-                    )
-                ) {
-                    storagePermissionLauncher.launch(permission)
-                } else {
-                    //説明を表示する処理？
-                    storagePermissionLauncher.launch(permission)
-                }
-            }
 
-            Manifest.permission.CAMERA -> {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        requireActivity(),
-                        permission
-                    )
-                ) {
-                    cameraPermissionLauncher.launch(permission)
-                } else {
-                    //説明を表示する処理？
-                    cameraPermissionLauncher.launch(permission)
-                }
-            }
+    private fun selectPhoto() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
         }
+        selectPhotoLauncher.launch(intent)
     }
 
     private val selectPhotoLauncher =
@@ -297,12 +320,28 @@ class RecipeEditFragment : Fragment() {
             }
         }
 
-    private fun selectPhoto() {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "image/*"
+    private fun takePicture() {
+//        val dir:File? = activity?.applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        //内部ストレージPicturesに保存される
+//        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        //内部ストレージDCIMに保存される　→　画像から見れる
+        val dir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
+        val fileDate: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.JAPAN).format(Date())
+        val file: File = File.createTempFile("JPEG_${fileDate}_", ".jpg", dir)
+        cameraUri = FileProvider.getUriForFile(
+            activity?.applicationContext!!,
+            "com.example.recipeapp.fileprovider",
+            file
+        )
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            addCategory(Intent.CATEGORY_DEFAULT)
+            putExtra(MediaStore.EXTRA_OUTPUT, cameraUri)
         }
-        selectPhotoLauncher.launch(intent)
+        takePictureLauncher.launch(intent)
+        Log.d("recipe app", "take picture intent")
+
     }
 
     private val takePictureLauncher =
@@ -336,42 +375,7 @@ class RecipeEditFragment : Fragment() {
             }
         }
 
-    private fun takePicture() {
-//        val dir:File? = activity?.applicationContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        //内部ストレージPicturesに保存される
-//        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        //内部ストレージDCIMに保存される　→　画像から見れる
-        val dir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
-        val fileDate: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.JAPAN).format(Date())
-        val file: File = File.createTempFile("JPEG_${fileDate}_", ".jpg", dir)
-        cameraUri = FileProvider.getUriForFile(
-            activity?.applicationContext!!,
-            "com.example.recipeapp.fileprovider",
-            file
-        )
 
-
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-            addCategory(Intent.CATEGORY_DEFAULT)
-            putExtra(MediaStore.EXTRA_OUTPUT, cameraUri)
-        }
-        takePictureLauncher.launch(intent)
-        Log.d("recipe app", "take picture intent")
-
-    }
-
-    private fun recipeImageDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.image_select)
-            .setItems(R.array.storage_or_camera) { _, which ->
-                when (which) {
-                    0 -> checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    1 -> checkPermission(Manifest.permission.CAMERA)
-                }
-            }
-            .show()
-    }
 
     //日付入力
     private fun showDatePicker(editText: EditText) {
