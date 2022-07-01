@@ -1,10 +1,10 @@
 package com.example.recipeapp.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +19,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.abs
+import android.view.GestureDetector
+import android.widget.FrameLayout
+import androidx.core.view.GestureDetectorCompat
 
 @AndroidEntryPoint
 class CookingCalendarFragment : Fragment() {
@@ -30,20 +34,27 @@ class CookingCalendarFragment : Fragment() {
 
     private var dateList = listOf<CalendarItem>()
 
+    // タッチイベントを処理するためのインタフェース
+//    private var mGestureDetector: GestureDetector? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding =  FragmentCookingCalendarBinding.inflate(inflater, container, false)
+        _binding = FragmentCookingCalendarBinding.inflate(inflater, container, false)
+
+//        mGestureDetector = GestureDetector(requireContext(), mOnGestureListener)
+
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.recyclerview
 
-        viewModel.currentDate.observe(viewLifecycleOwner){
+        viewModel.currentDate.observe(viewLifecycleOwner) {
             val thisMonth = SimpleDateFormat("yyyy.MM", Locale.JAPAN).format(it)
             binding.titleText.text = thisMonth
         }
@@ -61,6 +72,12 @@ class CookingCalendarFragment : Fragment() {
         recyclerView.layoutManager =
             GridLayoutManager(requireContext(), 7, RecyclerView.VERTICAL, false)
 
+        //スワイプでカレンダーの表示を変えたい...
+        //viewにlistenerが登録できてなさそう？一旦保留。
+//        binding.calenderView.setOnTouchListener { view, motionEvent ->
+//            Log.d("SwipeSample", "touch")
+//            mGestureDetector!!.onTouchEvent(motionEvent)
+//        }
 
         viewModel.dataList.observe(viewLifecycleOwner) {
             adapter.dateList = it
@@ -75,6 +92,46 @@ class CookingCalendarFragment : Fragment() {
             viewModel.nextMonth()
         }
     }
+
+
+//    private val MIN_SWIPE_DISTANCE_X = 100
+//    private val MAX_SWIPE_DISTANCE_X = 2000
+//
+//    private val mOnGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+//
+//        override fun onFling(
+//            e1: MotionEvent?,
+//            e2: MotionEvent?,
+//            velocityX: Float,
+//            velocityY: Float
+//        ): Boolean {
+//
+//            val deltaX: Float
+//            val deltaY: Float
+//            if (e1?.x != null && e2?.x != null && e1?.y != null && e2?.y != null) {
+//                deltaX = e1.x - e2.x
+//                deltaY = e1.y - e2.y
+//            } else {
+//                deltaX = 0.0f
+//                deltaY = 0.0f
+//            }
+//            val deltaXAbs = abs(deltaX)
+//            val deltaYAbs = abs(deltaY)
+//
+//            if ((deltaXAbs >= MIN_SWIPE_DISTANCE_X) && (deltaXAbs <= MAX_SWIPE_DISTANCE_X)) {
+//                if (deltaX > 0) {
+//                    Log.d("Swipe", "Swipe to left")
+//
+//                } else {
+//                    Log.d("Swipe", "Swipe to right")
+//
+//                }
+//            }
+//
+//            return super.onFling(e1, e2, velocityX, velocityY)
+//        }
+//    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
