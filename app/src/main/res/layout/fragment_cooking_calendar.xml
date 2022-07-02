@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.CookingCalendarFragment"
-    android:id="@+id/calender_view"
-    android:focusable="true"
-    android:clickable="true">
+    android:id="@+id/calender_view">
 
     <LinearLayout
         android:layout_width="match_parent"
