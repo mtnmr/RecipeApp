@@ -93,11 +93,11 @@ class ListDetailAdapter(
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ListDetail>() {
             override fun areContentsTheSame(oldItem: ListDetail, newItem: ListDetail): Boolean {
-                return oldItem.detailId == newItem.detailId
+                return oldItem == newItem
             }
 
             override fun areItemsTheSame(oldItem: ListDetail, newItem: ListDetail): Boolean {
-                return oldItem === newItem
+                return oldItem.detailId == newItem.detailId
             }
         }
     }

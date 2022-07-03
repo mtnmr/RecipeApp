@@ -39,11 +39,11 @@ class ShoppingListAdapter(private val onItemClicked:(ShoppingList) -> Unit):
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<ShoppingList>() {
             override fun areContentsTheSame(oldItem: ShoppingList, newItem: ShoppingList): Boolean {
-                return oldItem.listId == newItem.listId
+                return oldItem == newItem
             }
 
             override fun areItemsTheSame(oldItem: ShoppingList, newItem: ShoppingList): Boolean {
-                return oldItem === newItem
+                return oldItem.listId == newItem.listId
             }
         }
     }

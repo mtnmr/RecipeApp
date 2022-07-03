@@ -46,11 +46,11 @@ class CookingHistoryAdapter: ListAdapter<Cooking, CookingHistoryViewHolder>(diff
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<Cooking>() {
             override fun areContentsTheSame(oldItem: Cooking, newItem: Cooking): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
 
             override fun areItemsTheSame(oldItem: Cooking, newItem: Cooking): Boolean {
-                return oldItem === newItem
+                return oldItem.id == newItem.id
             }
         }
     }
