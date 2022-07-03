@@ -25,7 +25,7 @@ import android.widget.FrameLayout
 import androidx.core.view.GestureDetectorCompat
 
 @AndroidEntryPoint
-class CookingCalendarFragment : Fragment(), View.OnTouchListener {
+class CookingCalendarFragment : Fragment() {
 
     private var _binding: FragmentCookingCalendarBinding? = null
     private val binding get() = _binding!!
@@ -37,6 +37,12 @@ class CookingCalendarFragment : Fragment(), View.OnTouchListener {
 //     タッチイベントを処理するためのインタフェース
     private var mGestureDetector: GestureDetector? = null
 
+    @SuppressLint("ClickableViewAccessibility")
+    val listener = View.OnTouchListener { view, motion ->
+        mGestureDetector!!.onTouchEvent(motion)
+        true
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +51,7 @@ class CookingCalendarFragment : Fragment(), View.OnTouchListener {
 
         mGestureDetector = GestureDetector(requireContext(), mOnGestureListener)
 
-        binding.recyclerview.setOnTouchListener(this)
+        binding.calenderView.setOnTouchListener(listener)
 
         return binding.root
     }
@@ -126,11 +132,6 @@ class CookingCalendarFragment : Fragment(), View.OnTouchListener {
 
             return super.onFling(e1, e2, velocityX, velocityY)
         }
-    }
-
-    override fun onTouch(p0: View?, motionEvent: MotionEvent?): Boolean {
-        mGestureDetector!!.onTouchEvent(motionEvent)
-        return true
     }
 
 

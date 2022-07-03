@@ -20,11 +20,11 @@
 
             <TextView
                 android:id="@+id/titleText"
+                style="@style/RecipeAppTextviewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                tools:text="@string/sample_calendar_title"
-                style="@style/RecipeAppTextviewTitle"/>
+                tools:text="@string/sample_calendar_title" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/prevButton"
