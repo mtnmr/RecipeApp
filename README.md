@@ -24,7 +24,5 @@ kotlin 1.7.0
 
 ## サンプル
 
-https://user-images.githubusercontent.com/87315569/177021994-5424acb8-efef-4996-8e49-430a39e74249.mp4
-
-
+https://user-images.githubusercontent.com/87315569/177027436-720cc000-602a-48c7-8d52-88cbb0c8b396.mp4
 
