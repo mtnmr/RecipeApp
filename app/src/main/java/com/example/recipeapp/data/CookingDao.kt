@@ -24,6 +24,9 @@ interface CookingDao {
     @Query("SELECT * From cooking_menu WHERE (main LIKE '%' || :word || '%' OR side LIKE '%' || :word || '%') ORDER BY date ASC")
     fun getHistoryASC(word:String) : Flow<List<Cooking>>
 
+    @Query("SELECT * From cooking_menu WHERE (main LIKE '%' || :word || '%' OR side LIKE '%' || :word || '%') ORDER BY date DESC")
+    fun getHistoryDESC(word:String) : Flow<List<Cooking>>
+
     @Query("SELECT * From cooking_menu WHERE date BETWEEN :start AND :end ORDER BY date ASC")
     fun getNewCookingList(start:String, end:String): Flow<List<Cooking>>
 }

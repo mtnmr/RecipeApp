@@ -126,6 +126,10 @@ class RecipeRepository @Inject constructor(
         return cookingDao.getHistoryASC(word)
     }
 
+    fun getHistoryDESC(word:String) : Flow<List<Cooking>>{
+        return cookingDao.getHistoryDESC(word)
+    }
+
     fun getNewCookingList(start:String, end:String):Flow<List<Cooking>>{
         return cookingDao.getNewCookingList(start, end)
     }

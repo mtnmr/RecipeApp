@@ -175,4 +175,8 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     val history = Transformations.switchMap(word) { text ->
         repository.getHistoryASC(text).asLiveData()
     }
+
+    val historyDESC = Transformations.switchMap(word) { text ->
+        repository.getHistoryDESC(text).asLiveData()
+    }
 }
