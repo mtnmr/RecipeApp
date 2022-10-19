@@ -5,6 +5,7 @@ import com.example.recipeapp.data.ListDetail
 import com.example.recipeapp.data.ShoppingList
 import com.example.recipeapp.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
         repository.getCurrentShoppingList().asLiveData()
 
     fun deleteList(list: ShoppingList) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.deleteList(list)
         }
     }
@@ -31,7 +32,7 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
     }
 
     private fun updateList(list: ShoppingList) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.updateList(list)
         }
     }
@@ -52,7 +53,7 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
     }
 
     private fun insertDetail(detail: ListDetail) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.insertDetail(detail)
         }
     }
@@ -73,13 +74,13 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
     }
 
     private fun updateChecked(b: Boolean, id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO){
             repository.updateChecked(b, id)
         }
     }
 
     fun deleteListDetails(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.deleteListDetails(id)
         }
     }
@@ -91,7 +92,7 @@ class ListDetailViewModel @Inject constructor(private val repository: RecipeRepo
 //    }
 
     fun deleteDetail(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.deleteDetail(id)
         }
     }

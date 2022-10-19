@@ -5,6 +5,7 @@ import com.example.recipeapp.adapter.CalendarItem
 import com.example.recipeapp.data.Cooking
 import com.example.recipeapp.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
@@ -36,7 +37,7 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     }
 
     private fun insertCooking(cooking: Cooking) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.insertCooking(cooking)
         }
     }
@@ -63,7 +64,7 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     }
 
     private fun updateCooking(cooking: Cooking) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.updateCooking(cooking)
         }
     }
@@ -74,7 +75,7 @@ class CalendarViewModel @Inject constructor(private val repository: RecipeReposi
     }
 
     fun deleteCooking(cooking: Cooking) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.deleteCooking(cooking)
         }
     }

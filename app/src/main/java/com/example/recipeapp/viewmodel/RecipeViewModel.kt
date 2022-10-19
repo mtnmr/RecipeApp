@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -51,13 +52,13 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     }
 
     private fun insert(recipe: Recipe) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.insert(recipe)
         }
     }
 
     fun delete(recipe: Recipe) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.delete(recipe)
         }
     }
@@ -102,13 +103,13 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     }
 
     private fun update(recipe: Recipe) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.update(recipe)
         }
     }
 
     fun updateFavorite(b: Boolean, id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.updateFavorite(b, id)
         }
     }
